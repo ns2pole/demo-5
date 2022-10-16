@@ -10,6 +10,8 @@ import org.springframework.security.core.userdetails.UserDetailsService;
 import org.springframework.security.provisioning.InMemoryUserDetailsManager;
 import org.springframework.security.web.SecurityFilterChain;
 import org.springframework.boot.autoconfigure.security.servlet.PathRequest;
+import org.springframework.security.crypto.password.PasswordEncoder;
+import org.springframework.security.crypto.factory.PasswordEncoderFactories;
 
 @Configuration
 @EnableWebSecurity
@@ -20,17 +22,18 @@ public class WebSecurityConfig {
 		http.formLogin(login -> login
                 .loginProcessingUrl("/login")
                 .loginPage("/login")
-                .defaultSuccessUrl("/greeting")
+                .defaultSuccessUrl("/kintai")
                 .failureUrl("/login?error")
                 .permitAll()
         ).logout(logout -> logout
-                .logoutSuccessUrl("/")
+                .logoutSuccessUrl("/login")
         ).authorizeHttpRequests(authz -> authz
                 .requestMatchers(PathRequest.toStaticResources().atCommonLocations()).permitAll()
                 .mvcMatchers("/").permitAll()
-                .mvcMatchers("/general").hasRole("GENERAL")
-                .mvcMatchers("/admin").hasRole("ADMIN")
-                .mvcMatchers("/greeting").hasRole("ADMIN")
+                .mvcMatchers("/workplace").hasRole("GENERAL")
+                .mvcMatchers("/attendanceList").hasRole("ADMIN")
+                .mvcMatchers("/greeting").hasRole("USER")
+                .mvcMatchers("/kintai").hasRole("USER")
                 .anyRequest().authenticated()
         );
 		return http.build();
@@ -38,13 +41,13 @@ public class WebSecurityConfig {
 
 	@Bean
 	public UserDetailsService userDetailsService() {
-		UserDetails user =
-			 User.withDefaultPasswordEncoder()
-				.username("user")
-				.password("password")
-				.roles("ADMIN")
-				.build();
-
-		return new InMemoryUserDetailsManager(user);
+		PasswordEncoder encoder = PasswordEncoderFactories.createDelegatingPasswordEncoder();
+        User.UserBuilder userBuilder = User.builder().passwordEncoder(encoder::encode);
+        UserDetails user = userBuilder.username("user").password("password")
+                                    .roles("USER").build();
+        UserDetails admin = userBuilder.username("admin").password("password")
+                                    .roles("ADMIN").build();
+ 
+        return new InMemoryUserDetailsManager(user, admin);
 	}
 }
