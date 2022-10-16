@@ -10,11 +10,11 @@
     <header class="header">
       <nav class="global_nav">
         <ul>
-          <li><a href="./kintai" class="nav_item">勤怠入力</a></li>
-          <li><a href="./workplace" class="nav_item">勤務場所登録</a></li>
-          <li><a href="./contact_address" class="nav_item">連絡先登録</a></li>
-          <li><a href="./attendanceList" class="nav_item">勤怠状況一覧表示</a></li>
-          <li><a href="./login" class="nav_item">ログアウト</a></li>
+          <li sec:authorize="hasRole('USER')"><a href="./kintai" class="nav_item">勤怠入力</a></li>
+          <li sec:authorize="hasRole('USER')"><a href="./workplace" class="nav_item">勤務場所登録</a></li>
+          <li sec:authorize="hasRole('USER')"><a href="./contact_address" class="nav_item">連絡先登録</a></li>
+          <li sec:authorize="hasRole('ADMIN')"><a href="./attendanceList" class="nav_item">勤怠状況一覧表示</a></li>
+          <li sec:authorize="hasRole('USER')"><a href="./login" class="nav_item">ログアウト</a></li>
         </ul>
       </nav>
     </header>
