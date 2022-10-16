@@ -9,6 +9,7 @@ import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.security.core.userdetails.UserDetailsService;
 import org.springframework.security.provisioning.InMemoryUserDetailsManager;
 import org.springframework.security.web.SecurityFilterChain;
+import org.springframework.boot.autoconfigure.security.servlet.PathRequest;
 
 @Configuration
 @EnableWebSecurity
@@ -16,17 +17,22 @@ public class WebSecurityConfig {
 
 	@Bean
 	public SecurityFilterChain securityFilterChain(HttpSecurity http) throws Exception {
-		http
-			.authorizeHttpRequests((requests) -> requests
-				.antMatchers("/", "/home").permitAll()
-				.anyRequest().authenticated()
-			)
-			.formLogin((form) -> form
-				.loginPage("/login")
-				.permitAll()
-			)
-			.logout((logout) -> logout.permitAll());
-
+		http.formLogin(login -> login
+                .loginProcessingUrl("/login")
+                .loginPage("/login")
+                .defaultSuccessUrl("/greeting")
+                .failureUrl("/login?error")
+                .permitAll()
+        ).logout(logout -> logout
+                .logoutSuccessUrl("/")
+        ).authorizeHttpRequests(authz -> authz
+                .requestMatchers(PathRequest.toStaticResources().atCommonLocations()).permitAll()
+                .mvcMatchers("/").permitAll()
+                .mvcMatchers("/general").hasRole("GENERAL")
+                .mvcMatchers("/admin").hasRole("ADMIN")
+                .mvcMatchers("/greeting").hasRole("ADMIN")
+                .anyRequest().authenticated()
+        );
 		return http.build();
 	}
 
@@ -36,7 +42,7 @@ public class WebSecurityConfig {
 			 User.withDefaultPasswordEncoder()
 				.username("user")
 				.password("password")
-				.roles("USER")
+				.roles("ADMIN")
 				.build();
 
 		return new InMemoryUserDetailsManager(user);
