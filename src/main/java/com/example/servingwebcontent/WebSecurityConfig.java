@@ -17,12 +17,13 @@ import org.springframework.security.crypto.factory.PasswordEncoderFactories;
 @EnableWebSecurity
 public class WebSecurityConfig {
 
+
 	@Bean
 	public SecurityFilterChain securityFilterChain(HttpSecurity http) throws Exception {
 		http.formLogin(login -> login
                 .loginProcessingUrl("/login")
                 .loginPage("/login")
-                .defaultSuccessUrl("/kintai")
+                // .defaultSuccessUrl("/kintai")
                 .failureUrl("/login?error")
                 .permitAll()
         ).logout(logout -> logout
@@ -35,7 +36,7 @@ public class WebSecurityConfig {
                 .mvcMatchers("/greeting").hasRole("USER")
                 .mvcMatchers("/kintai").hasRole("USER")
                 .anyRequest().authenticated()
-        );
+        ).formLogin().successHandler(new MyAuthenticationSuccessHandler());
 		return http.build();
 	}
 
