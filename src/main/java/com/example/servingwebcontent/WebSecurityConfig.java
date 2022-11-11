@@ -21,8 +21,8 @@ public class WebSecurityConfig {
 	@Bean
 	public SecurityFilterChain securityFilterChain(HttpSecurity http) throws Exception {
 		http.formLogin(login -> login
-                .loginProcessingUrl("/login")
-                .loginPage("/login")
+//               .loginProcessingUrl("/login")
+//               .loginPage("/login")
                 // .defaultSuccessUrl("/kintai")
                 .failureUrl("/login?error")
                 .permitAll()
@@ -31,10 +31,11 @@ public class WebSecurityConfig {
         ).authorizeHttpRequests(authz -> authz
                 .requestMatchers(PathRequest.toStaticResources().atCommonLocations()).permitAll()
                 .mvcMatchers("/").permitAll()
-                .mvcMatchers("/workplace").hasRole("GENERAL")
-                .mvcMatchers("/attendanceList").hasRole("ADMIN")
-                .mvcMatchers("/greeting").hasRole("USER")
-                .mvcMatchers("/kintai").hasRole("USER")
+//                .mvcMatchers("/attendanceList").hasRole("ADMIN")
+                .mvcMatchers("/attendanceList").permitAll()
+                .mvcMatchers("/workplace").permitAll()
+                .mvcMatchers("/greeting").permitAll()
+                .mvcMatchers("/kintai").permitAll()
                 .anyRequest().authenticated()
         ).formLogin().successHandler(new MyAuthenticationSuccessHandler());
 		return http.build();
