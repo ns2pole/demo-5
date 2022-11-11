@@ -20,20 +20,18 @@ public class WebSecurityConfig {
 
 	@Bean
 	public SecurityFilterChain securityFilterChain(HttpSecurity http) throws Exception {
-		http.formLogin(login -> login
-//               .loginProcessingUrl("/login")
-//               .loginPage("/login")
-                // .defaultSuccessUrl("/kintai")
-                .failureUrl("/login?error")
-                .permitAll()
-        ).logout(logout -> logout
+		http.formLogin(login ->
+				login.loginProcessingUrl("/login").loginPage("/login")
+                 .defaultSuccessUrl("/kintai")
+                .failureUrl("/login?error").permitAll()
+						.failureHandler(new MyAuthenticationFailureHandler())       // 認証失敗時に呼ばれるハンドラクラス
+		).logout(logout -> logout
                 .logoutSuccessUrl("/login")
         ).authorizeHttpRequests(authz -> authz
                 .requestMatchers(PathRequest.toStaticResources().atCommonLocations()).permitAll()
-                .mvcMatchers("/").permitAll()
-//                .mvcMatchers("/attendanceList").hasRole("ADMIN")
-                .mvcMatchers("/attendanceList").permitAll()
-                .mvcMatchers("/workplace").permitAll()
+                .mvcMatchers("/").hasRole("ADMIN")
+                .mvcMatchers("/attendanceList").hasRole("ADMIN")
+//                .mvcMatchers("/workplace").permitAll()
                 .mvcMatchers("/greeting").permitAll()
                 .mvcMatchers("/kintai").permitAll()
                 .anyRequest().authenticated()
