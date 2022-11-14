@@ -1,9 +1,30 @@
-.form {
+body{
+ background-color: #C0C0C0;
+}
+
+form {
     width: 400px;
-    margin: 0 auto;
-    padding: 20px;
-    background-color: #ffffff;
-    border: 1px solid #cccccc;
+    padding: 40px 10px;
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%,-50%);
+    background-color: #98FB98;
+    text-align: center;
+}
+
+table {
+    position : relative;
+    left: 40px;
+}
+
+form input[type = "submit"]{
+    position : relative;
+    top : 20px;
+    border: #FFFFFF;
+    padding: 15px 10px;
+    width: 200px;
+    border-radius: 25px;
 }
 
 .form-title {
