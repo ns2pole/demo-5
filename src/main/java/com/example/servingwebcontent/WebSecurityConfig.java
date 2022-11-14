@@ -21,8 +21,8 @@ public class WebSecurityConfig {
 	@Bean
 	public SecurityFilterChain securityFilterChain(HttpSecurity http) throws Exception {
 		http.formLogin(login -> login
-//               .loginProcessingUrl("/login")
-//               .loginPage("/login")
+				.loginProcessingUrl("/login")
+				.loginPage("/login")
                 // .defaultSuccessUrl("/kintai")
                 .failureUrl("/login?error")
                 .permitAll()
