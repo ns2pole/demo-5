@@ -15,10 +15,18 @@ public class AttendanceListController {
 	
 	@GetMapping("/attendanceList")
 	public String attendanceList(Model model) {
-		String sql = "select id,date,begin_time,end_time,rest from \"attendances\"";
+//		String sql = "select id,date,begin_time,end_time,rest from \"attendances\"";
+		String sql = "select id,date from \"attendances\"";
 		List<Map<String, Object>> attendances = jdbcTemplate.queryForList(sql);
 		model.addAttribute("attendances", attendances);
 		return "attendanceList";
 	}
 
+	@GetMapping("/attendanceListTest")
+	public String hello() {
+		System.out.println("testtesttesttest");
+		String sql = "INSERT INTO Attendances (id,date) Values (111,'2023-11-15')";
+		jdbcTemplate.update(sql);
+		return "workplace";
+	}
 }

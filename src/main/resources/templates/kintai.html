@@ -26,15 +26,19 @@
       <div id="user-name">こんにちは、ななしさん。</div>
       <div id="state">状態：未出勤</div>
       <div id="nowTime" ></div>
-      <div class="attend-leave-buttons">  
-        <button id="attendwork">出勤</button>
+      <div class="attend-leave-buttons">
+        <form action="/attendanceListTest" method="GET">
+          <button id="attendwork">出勤</button>
+        </form>
         <button id="leavingwork">退勤</button>
       </div>
       <div class="rest-buttons">
         <button id="rest-start">休憩開始</button>
         <button id="rest-end">休憩終了</button>
-      </div>  
+      </div>
     </div>
     <script type="text/javascript" th:src="@{/js/main.js}"></script>
+    <script>
+    </script>
   </body>
 </html>
