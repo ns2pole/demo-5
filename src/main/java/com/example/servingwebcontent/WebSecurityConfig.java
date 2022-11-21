@@ -30,7 +30,8 @@ public class WebSecurityConfig {
         ).authorizeHttpRequests(authz -> authz
                 .requestMatchers(PathRequest.toStaticResources().atCommonLocations()).permitAll()
                 .mvcMatchers("/").hasRole("ADMIN")
-                .mvcMatchers("/attendanceList").hasRole("ADMIN")
+                .mvcMatchers("/attendanceList").permitAll()
+//                .mvcMatchers("/attendanceList").hasRole("ADMIN")
 //                .mvcMatchers("/workplace").permitAll()
                 .mvcMatchers("/greeting").permitAll()
                 .mvcMatchers("/kintai").permitAll()
