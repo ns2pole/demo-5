@@ -24,8 +24,7 @@ public class AttendanceListController {
 
 	@GetMapping("/attendanceListTest")
 	public String hello() {
-		System.out.println("testtesttesttest");
-		String sql = "INSERT INTO Attendances (id,date) Values (111,'2023-11-15')";
+		String sql = "INSERT INTO Attendances (id,date) Values (911,'2023-11-22')";
 		jdbcTemplate.update(sql);
 		return "workplace";
 	}
