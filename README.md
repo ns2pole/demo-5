@@ -1,15 +1,10 @@
-中島くんへ
-セキュリティの関係で、このリポジトリをprivateに設定しました。
-
 ## dataBase構造
 ### attendances table
-
 id(integer),
 date(date),
 begin_time(time without time zone),
 end_time(time without time zone),
 rest(integer)
-
 
 ### user table(修正する予定)
  id       | integer |           |          | 
@@ -25,6 +20,15 @@ rest(integer)
 ## 実行方法
 host環境(多くの人はwindowsだと思います)にpostgre環境を用意して、
 上述のtable構造(attendances tableなど)を作ることで、動作します。
+user_tableには「username =>'user',password => '$2a$08$Skj/R3IthjGG0P7KDJ/S3eaWXFGD9ioxpL44kpD7Tq5Gl5yaBPDfq'」というデータを追加して下さい。
+
+※postgresでselectを行うと下記のようになるように。
+postgres=# SELECT * FROM users;
+ id | username |                           password                           | user_id 
+----+----------+--------------------------------------------------------------+---------
+  1 | user     | $2a$08$Skj/R3IthjGG0P7KDJ/S3eaWXFGD9ioxpL44kpD7Tq5Gl5yaBPDfq | 111
+(1 row)
+
 
 ## ログイン
 [username => user,password => password]で入れる。
