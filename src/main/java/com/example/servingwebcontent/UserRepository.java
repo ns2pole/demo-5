@@ -1,6 +1,17 @@
 package com.example.servingwebcontent;
 
-import org.springframework.data.jpa.repository.JpaRepository;
+import java.util.Optional;
 
-public interface UserRepository extends JpaRepository<User, Integer> {
+/**
+ * インフラ層とのインタフェース
+ */
+public interface UserRepository {
+
+    Optional<User> findById(String id);
+
+    User save(User user);
+
+    void deleteById(String id);
+
+    User findByUsernameEquals(String username);
 }
