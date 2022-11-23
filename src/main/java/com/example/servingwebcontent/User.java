@@ -1,27 +1,34 @@
 package com.example.servingwebcontent;
-
-import javax.persistence.Column;
-import javax.persistence.Entity;
-import javax.persistence.GeneratedValue;
-import javax.persistence.GenerationType;
-import javax.persistence.Id;
-import javax.persistence.Table;
-
-@Entity
-@Table(name="user1")
+ 
 public class User {
-	
-	@Id
-	@GeneratedValue(strategy=GenerationType.IDENTITY)
-	private int id;
-	
-	@Column(name="name")
-	private String name;
-
-	// getter, setter
-	public Integer getID() {return id;}
-	public void setId(Integer no) {this.id = no;}
-	public String getName() {return name;}
-	public void setName(String name) {this.name = name;}
-	
+     
+    private int id;
+    private String userId;
+    private String password;
+    private String name;
+ 
+    public int getId() {
+        return id;
+    }
+    public void setId(int id) {
+        this.id = id;
+    }
+    public String getUserId() {
+        return userId;
+    }
+    public void setUserId(String userId) {
+        this.userId = userId;
+    }
+    public String getPassword() {
+        return password;
+    }
+    public void setPassword(String password) {
+        this.password = password;
+    }
+    public String getName() {
+        return name;
+    }
+    public void setName(String name) {
+        this.name = name;
+    }
 }

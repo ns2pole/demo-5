@@ -6,18 +6,27 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RestController;
+import org.springframework.stereotype.Controller;
 
-@RestController
-@RequestMapping("/counter")
+import com.example.servingwebcontent.MyUserService;
+import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.ui.Model;
+
+@Controller
 public class UserController {
-	
+
 	@Autowired
-	UserService service;
+	MyUserService service;
 	
 	// 一覧表示
-	@RequestMapping(value="/selectall", method=RequestMethod.GET)
-	public List<User> counterSelectAll() {
-		return service.selectAll();	
+	// @RequestMapping(value="/selectall", method=RequestMethod.GET)
+	// public List<User> counterSelectAll() {
+	// 	return service.selectAll();	
+	// }
+
+	@GetMapping("/loginForm")
+	public String loginForm(Model model) {
+		return "loginForm";
 	}
 
 }
