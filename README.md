@@ -32,3 +32,5 @@ postgres=# SELECT * FROM users;
 
 ## ログイン
 [username => user,password => password]で入れる。
+
+## ログインは https://itmaroblog.com/webapplication-java-spring_8/を参考にした。
