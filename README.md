@@ -20,7 +20,7 @@ rest(integer)
 ## 実行方法
 host環境(多くの人はwindowsだと思います)にpostgre環境を用意して、
 上述のtable構造(attendances tableなど)を作ることで、動作します。
-user_tableには「username =>'user',password => '$2a$08$Skj/R3IthjGG0P7KDJ/S3eaWXFGD9ioxpL44kpD7Tq5Gl5yaBPDfq'」というデータを追加して下さい。
+users_tableには「username =>'user',password => '$2a$08$Skj/R3IthjGG0P7KDJ/S3eaWXFGD9ioxpL44kpD7Tq5Gl5yaBPDfq'」というデータを追加して下さい。
 
 ※postgresでselectを行うと下記のようになるように。
 postgres=# SELECT * FROM users;
