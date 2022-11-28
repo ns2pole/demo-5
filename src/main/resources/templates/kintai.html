@@ -1,5 +1,6 @@
 <!DOCTYPE html>
-<html xmlns:th="http://www.thymeleaf.org" xmlns:sec="http://www.thymeleaf.org/thymeleaf-extras-springsecurity5">
+<html xmlns:th="http://www.thymeleaf.org" xmlns:sec="http://www.thymeleaf.org/thymeleaf-extras-springsecurity5"
+      xmlns="http://www.w3.org/1999/html">
   <head>
     <meta charset="utf-8" />
     <title></title>
@@ -27,10 +28,12 @@
       <div id="state">状態：未出勤</div>
       <div id="nowTime" ></div>
       <div class="attend-leave-buttons">
-        <form action="/attendanceListTest" method="GET">
+        <form action="/attendanceListStart" method="GET">
           <button id="attendwork">出勤</button>
         </form>
-        <button id="leavingwork">退勤</button>
+        <form action="/atendanceListEnd" method="GET">
+          <button id="leavingwork">退勤</button>
+        </form>
       </div>
       <div class="rest-buttons">
         <button id="rest-start">休憩開始</button>
