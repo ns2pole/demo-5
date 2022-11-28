@@ -7,11 +7,7 @@ import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.security.core.userdetails.UserDetailsService;
 import org.springframework.security.core.userdetails.UsernameNotFoundException;
 import org.springframework.stereotype.Service;
- 
-import com.example.servingwebcontent.MyUserDetails;
-import com.example.servingwebcontent.User;
-import com.example.servingwebcontent.IUserAccountDao;
- 
+
 @Service
 public class MyUserService implements UserDetailsService {
 
@@ -22,11 +18,13 @@ public class MyUserService implements UserDetailsService {
         this.dao = dao;
     }
     @Override
-    public UserDetails loadUserByUsername(String userId) throws UsernameNotFoundException {
-         
-        Optional<User> user = dao.findUser(userId);
+    public UserDetails loadUserByUsername(String userName) throws UsernameNotFoundException {
+        System.out.println("loadUserByUsernamecalled??");
+        System.out.println(userName);
+        Optional<User> user = dao.findUser(userName);
         if(!user.isPresent()) {
-            throw new UsernameNotFoundException(userId + "が存在しません");
+            System.out.println("errorrrr");
+            throw new UsernameNotFoundException(userName + "が存在しません");
         }   
         return new MyUserDetails(user.get());
     }

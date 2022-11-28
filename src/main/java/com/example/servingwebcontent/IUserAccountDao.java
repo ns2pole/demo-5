@@ -6,5 +6,5 @@ import com.example.servingwebcontent.User;
 
 public interface IUserAccountDao {
     // Userを取得
-    Optional<User> findUser(String userId);
+    Optional<User> findUser(String userName);
 }
