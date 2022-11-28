@@ -15,15 +15,6 @@ import org.springframework.ui.Model;
 @Controller
 public class UserController {
 
-	@Autowired
-	MyUserService service;
-	
-	// 一覧表示
-	// @RequestMapping(value="/selectall", method=RequestMethod.GET)
-	// public List<User> counterSelectAll() {
-	// 	return service.selectAll();	
-	// }
-
 	@GetMapping("/loginForm")
 	public String loginForm(Model model) {
 		return "loginForm";

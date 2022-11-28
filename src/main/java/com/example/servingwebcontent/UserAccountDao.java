@@ -25,24 +25,17 @@ public class UserAccountDao implements IUserAccountDao {
     @Override
     public Optional<User> findUser(String username) {
         
-        String sql = "SELECT id, user_id, password, username "
-                + "FROM users "
-                + "WHERE username = :username";
-        // パラメータ設定用Map
+        String sql = "SELECT id, user_id, password, username " + "FROM users " + "WHERE username = :username";
         Map<String, Object> param = new HashMap<>();
         param.put("username", username);
-         
         User user = new User();
-        // 一件取得
         try {
-            System.out.println("UserAccountDao.findUser() is called.test    ");
             Map<String, Object> result = this.jdbcTemplate.queryForMap(sql, param);
-            System.out.println(result);
             user.setId((int) result.get("id"));
             user.setUserId((String) result.get("user_id"));
             user.setPassword((String)result.get("password"));
             user.setName((String)result.get("username"));
-        }catch(EmptyResultDataAccessException e){
+        } catch(EmptyResultDataAccessException e){
             Optional <User> userOpl = Optional.ofNullable(user);
             return userOpl;
         }
