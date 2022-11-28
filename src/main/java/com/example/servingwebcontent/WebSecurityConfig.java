@@ -22,56 +22,61 @@ import org.springframework.security.config.annotation.web.configuration.WebSecur
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 
 @Configuration
-@EnableWebSecurity
-public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
+public class WebSecurityConfig {
+        public class SecurityConfig {
 
-        private MyUserService userService;
-        
-        @Autowired
-        public WebSecurityConfig (MyUserService userService) {
-                this.userService = userService;
+                @Bean
+                public SecurityFilterChain securityFilterChain(HttpSecurity http) throws Exception {
+                        http.formLogin(login -> login
+                                .loginProcessingUrl("/login")
+                                .loginPage("/loginForm")
+                                .defaultSuccessUrl("/attendanceList")
+                                .failureUrl("/login?error")
+                                .permitAll()
+                        ).logout(logout -> logout
+                                .logoutSuccessUrl("/")
+                        ).authorizeHttpRequests(authz -> authz
+                                .requestMatchers(PathRequest.toStaticResources().atCommonLocations()).permitAll()
+                                .mvcMatchers("/").permitAll()
+                                .mvcMatchers("/general").hasRole("GENERAL")
+                                .mvcMatchers("/admin").hasRole("ADMIN")
+                                .anyRequest().authenticated()
+                        );
+                        return http.build();
+                }
+
+                @Bean
+                public PasswordEncoder passwordEncoder() {
+                        return new BCryptPasswordEncoder();
+                }
         }
+//        // URLパス毎に制御
+//        @Override
+//        public void configure(HttpSecurity http) throws Exception{
+//                http
+//                .authorizeRequests()
+//                .antMatchers("/js/**", "/css/**", "/loginForm").permitAll()
+//                .anyRequest().authenticated()
+//                .and()
+//                .formLogin()
+//                .loginPage("/loginForm")
+//                .loginProcessingUrl("/login")
+//                .failureUrl("/loginForm?error=true")
+//                .and()
+//                .logout()
+//                .permitAll();
+//        }
+//
+//        // ユーザ情報の取得
+//        @Override
+//        public void configure(AuthenticationManagerBuilder auth) throws Exception{
+//                auth.userDetailsService(userService).passwordEncoder(passwordEncoder());
+//        }
+//
+//        // パスワードハッシュ化する
+//        public BCryptPasswordEncoder passwordEncoder() {
+//                BCryptPasswordEncoder bcpe = new BCryptPasswordEncoder();
+//                return bcpe;
+//        }
         
-        // URLパス毎に制御
-        @Override
-        public void configure(HttpSecurity http) throws Exception{
-                http
-                .authorizeRequests()
-                .antMatchers("/js/**", "/css/**", "/loginForm").permitAll()
-                .anyRequest().authenticated()
-                .and()
-                .formLogin()
-                .loginPage("/loginForm")
-                .loginProcessingUrl("/login")
-                .usernameParameter("username")
-                .passwordParameter("password")
-                .defaultSuccessUrl("/attendanceList", true)
-                .failureUrl("/loginForm?error=true")
-                        .and()
-                .logout()
-                .permitAll();
-        }
-        
-        // ユーザ情報の取得
-        @Override
-        public void configure(AuthenticationManagerBuilder auth) throws Exception{
-                auth.userDetailsService(userService).passwordEncoder(passwordEncoder());
-        }
-        
-        // パスワードハッシュ化する
-        public BCryptPasswordEncoder passwordEncoder() {
-                BCryptPasswordEncoder bcpe = new BCryptPasswordEncoder();
-                return bcpe;
-        }
-        
-        @Bean
-        public UserDetailsService userDetailsService() {
-                PasswordEncoder encoder = PasswordEncoderFactories.createDelegatingPasswordEncoder();
-                User.UserBuilder userBuilder = User.builder().passwordEncoder(encoder::encode);
-                UserDetails user = userBuilder.username("user").password("password")
-                                        .roles("USER").build();
-                UserDetails admin = userBuilder.username("admin").password("password")
-                                        .roles("ADMIN").build();
-                return new InMemoryUserDetailsManager(user, admin);
-        }
 }
