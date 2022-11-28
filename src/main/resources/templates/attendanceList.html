@@ -35,11 +35,11 @@
           </tr>
 
           <tr th:each="attendance : ${attendances}">
-            <td th:text="${attendance.id}"></td>
+            <!--<td th:text="${attendance.id}"></td>-->
             <td th:text="${attendance.date}"></td>
-<!--            <td th:text="${attendance.begin_time}"></td>-->
-<!--            <td th:text="${attendance.end_time}"></td>-->
-<!--            <td th:text="${attendance.rest}"></td>-->
+            <td th:text="${attendance.begin_time}"></td>
+            <td th:text="${attendance.end_time}"></td>
+            <td th:text="${attendance.rest}"></td>
           </tr>
         </table>
         </div>
