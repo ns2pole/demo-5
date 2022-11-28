@@ -49,34 +49,5 @@ public class WebSecurityConfig {
                 public PasswordEncoder passwordEncoder() {
                         return new BCryptPasswordEncoder();
                 }
-        }
-//        // URLパス毎に制御
-//        @Override
-//        public void configure(HttpSecurity http) throws Exception{
-//                http
-//                .authorizeRequests()
-//                .antMatchers("/js/**", "/css/**", "/loginForm").permitAll()
-//                .anyRequest().authenticated()
-//                .and()
-//                .formLogin()
-//                .loginPage("/loginForm")
-//                .loginProcessingUrl("/login")
-//                .failureUrl("/loginForm?error=true")
-//                .and()
-//                .logout()
-//                .permitAll();
-//        }
-//
-//        // ユーザ情報の取得
-//        @Override
-//        public void configure(AuthenticationManagerBuilder auth) throws Exception{
-//                auth.userDetailsService(userService).passwordEncoder(passwordEncoder());
-//        }
-//
-//        // パスワードハッシュ化する
-//        public BCryptPasswordEncoder passwordEncoder() {
-//                BCryptPasswordEncoder bcpe = new BCryptPasswordEncoder();
-//                return bcpe;
-//        }
-        
+        }       
 }

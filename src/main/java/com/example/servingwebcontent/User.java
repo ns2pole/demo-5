@@ -6,6 +6,8 @@ public class User {
     private String userId;
     private String password;
     private String name;
+
+    private String auth;
  
     public int getId() {
         return id;
@@ -31,4 +33,8 @@ public class User {
     public void setName(String name) {
         this.name = name;
     }
+
+    public String getAuth() {return auth; }
+
+    public void setAuth(String auth) { this.auth = auth; }
 }
