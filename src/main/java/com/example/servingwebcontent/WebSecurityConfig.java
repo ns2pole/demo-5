@@ -41,7 +41,7 @@ public class WebSecurityConfig {
                                 .mvcMatchers("/general").hasRole("GENERAL")
                                 .mvcMatchers("/admin").hasRole("ADMIN")
                                 .anyRequest().authenticated()
-                        );
+                        ).formLogin().successHandler(new MyAuthenticationSuccessHandler());
                         return http.build();
                 }
 
