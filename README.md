@@ -11,6 +11,7 @@ rest(integer)
  username | text    |           |          | 
  password | text    |           |          | 
  user_id  | text    |   
+ auth     | text    |   
 
 ## 担当
 ### 中島俊介
@@ -25,13 +26,17 @@ users_tableには「username =>'user',password => '$2a$08$Skj/R3IthjGG0P7KDJ/S3e
 
 ※postgresでselectを行うと下記のようになるように。
 postgres=# SELECT * FROM users;
- id | username |                           password                           | user_id 
-----+----------+--------------------------------------------------------------+---------
-  1 | user     | $2a$08$Skj/R3IthjGG0P7KDJ/S3eaWXFGD9ioxpL44kpD7Tq5Gl5yaBPDfq | 111
-(1 row)
+ id | username |                           password                           | user_id |    auth    
+----+----------+--------------------------------------------------------------+---------+------------
+  1 | user     | $2a$08$Skj/R3IthjGG0P7KDJ/S3eaWXFGD9ioxpL44kpD7Tq5Gl5yaBPDfq | 1       | ROLE_USER
+  2 | admin    | $2a$08$Skj/R3IthjGG0P7KDJ/S3eaWXFGD9ioxpL44kpD7Tq5Gl5yaBPDfq | 2       | ROLE_ADMIN
+(2 rows)
 
 
-## ログイン
+
+## ログイン ROLE_USER
 [username => user,password => password]で入れる。
+## ログイン ROLE_ADMIN
+[username => admin,password => password]で入れる。
 
 ## ログインは https://itmaroblog.com/webapplication-java-spring_8/を参考にした。
