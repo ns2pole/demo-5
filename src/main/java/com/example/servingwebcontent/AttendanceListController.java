@@ -34,6 +34,10 @@ public class AttendanceListController {
 
 	@GetMapping("/attendanceListStart")
 	public String hello(@AuthenticationPrincipal MyUserDetails user) {
+<<<<<<< HEAD
+=======
+		System.out.println(user.getUserId());
+>>>>>>> reDevelop
 		Date date = new Date();
 		String strday = new SimpleDateFormat("yyyy-MM-dd").format(date);
 		String strtime = new SimpleDateFormat("HH:mm:ss").format(date);
