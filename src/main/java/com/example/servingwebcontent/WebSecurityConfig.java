@@ -17,7 +17,6 @@ public class WebSecurityConfig {
                         http.formLogin(login -> login
                                 .loginProcessingUrl("/login")
                                 .loginPage("/loginForm")
-                                .defaultSuccessUrl("/attendanceList")
                                 .failureUrl("/loginForm")
                                 .permitAll()
                         ).logout(logout -> logout
@@ -25,8 +24,9 @@ public class WebSecurityConfig {
                         ).authorizeHttpRequests(authz -> authz
                                 .requestMatchers(PathRequest.toStaticResources().atCommonLocations()).permitAll()
                                 .mvcMatchers("/").permitAll()
-                                .mvcMatchers("/general").hasRole("GENERAL")
-                                .mvcMatchers("/admin").hasRole("ADMIN")
+                                .mvcMatchers("/users").hasRole("ADMIN")
+                                .mvcMatchers("/divisions").hasRole("ADMIN")
+                                .mvcMatchers("/masterWorkPlaces").hasRole("ADMIN")
                                 .anyRequest().authenticated()
                         ).formLogin().successHandler(new com.example.servingwebcontent.MyAuthenticationSuccessHandler());
                         return http.build();

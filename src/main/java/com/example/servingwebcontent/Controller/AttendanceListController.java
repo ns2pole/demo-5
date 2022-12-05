@@ -1,10 +1,10 @@
-package com.example.servingwebcontent;
+package com.example.servingwebcontent.Controller;
 
 import org.springframework.security.core.annotation.AuthenticationPrincipal;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
-
+import com.example.servingwebcontent.MyUserDetails;
 import java.util.Date;
 import java.util.List;
 import java.util.Map;
@@ -47,7 +47,7 @@ public class AttendanceListController {
 		String sql = "INSERT INTO attendances (id,user_id,date,begin_time)" +
 				" Values ("+id+","+userId+",'"+strday+"','"+strtime+"')";
 		this.jdbcTemplate.update(sql);
-		return "workplace";
+		return "workPlace";
 	}
 
 	@GetMapping("/atendanceListEnd")
