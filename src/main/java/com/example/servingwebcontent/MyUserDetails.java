@@ -18,13 +18,12 @@ public class MyUserDetails implements UserDetails {
 	}
 
 
+	public int getId() {
+		return user.getId();
+	}
 	@Override
 	public String getPassword() {
 		return user.getPassword();
-	}
-
-	public String getUserId() {
-		return user.getUserId();
 	}
 
 	@Override
