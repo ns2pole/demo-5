@@ -1,6 +1,7 @@
 ## dataBase構造
 ### attendances table
 id(integer),
+user_id(integer),
 date(date),
 begin_time(time without time zone),
 end_time(time without time zone),
