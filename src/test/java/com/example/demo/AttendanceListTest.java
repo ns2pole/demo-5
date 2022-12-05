@@ -26,6 +26,6 @@ public class AttendanceListTest {
 //        this.mockMvc.perform(get("/attendanceList")).andDo(print())
 //            .andExpect(status().isOk());
         this.mockMvc.perform(get("/attendanceList"))
-                .andExpect(status().isForbidden());
+                .andExpect(status().isFound());
     }
 }
