@@ -10,6 +10,7 @@ public class MyUserDetails implements UserDetails {
 
 
 	private static final long serialVersionUID = 1L;
+	
 	private final User user;
 
 	public MyUserDetails(User user) {
@@ -20,6 +21,10 @@ public class MyUserDetails implements UserDetails {
 	@Override
 	public String getPassword() {
 		return user.getPassword();
+	}
+
+	public String getUserId() {
+		return user.getUserId();
 	}
 
 	@Override
