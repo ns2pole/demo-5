@@ -24,8 +24,10 @@ public class AttendanceListController {
 	private JdbcTemplate jdbcTemplate;
 	
 	@GetMapping("/attendanceList")
-	public String attendanceList(Model model) {
-		String sql = "select id,date,begin_time,end_time,rest from \"attendances\"";
+	public String attendanceList(Model model ,@AuthenticationPrincipal MyUserDetails user) {
+		String user_id = user.getUserId();
+		String sql = "select id,date,begin_time,end_time,rest from attendances " +
+				"where user_id = "+user_id;
 //		String sql = "select id,date from \"attendances\"";
 		List<Map<String, Object>> attendances = this.jdbcTemplate.queryForList(sql);
 		model.addAttribute("attendances", attendances);
@@ -34,34 +36,44 @@ public class AttendanceListController {
 
 	@GetMapping("/attendanceListStart")
 	public String hello(@AuthenticationPrincipal MyUserDetails user) {
+		String struser = user.getUserId();
 		System.out.println(user.getUserId());
+		int id = 0;
+		try{
+			String sql = "SELECT MAX(id) AS MAX_ID FROM attendances";
+			Map<String, Object> result = jdbcTemplate.queryForMap(sql);
+			id = (int) result.get("MAX_ID")+ 1;
+		}catch (Exception e){
+			System.out.println("0番目");
+		}
 		Date date = new Date();
 		String strday = new SimpleDateFormat("yyyy-MM-dd").format(date);
 		String strtime = new SimpleDateFormat("HH:mm:ss").format(date);
-		String struser = user.getUserId();
-		String sql = "INSERT INTO Attendances (id,date,begin_time) Values ("+struser+",'"+strday+"','"+strtime+"')";
+		String sql = "INSERT INTO attendances (id,user_id,date,begin_time)" +
+				" Values ("+id+","+struser+",'"+strday+"','"+strtime+"')";
 		this.jdbcTemplate.update(sql);
 		return "workplace";
 	}
 
 	@GetMapping("/atendanceListEnd")
-	public String end(@AuthenticationPrincipal MyUserDetails user){
+	public String end(@AuthenticationPrincipal MyUserDetails user) {
 		String struser = user.getUserId();
-		String sql = "SELECT date,begin_time "
-				+ "FROM attendances "
-				+ "WHERE end_time IS NULL AND id = "
+		String sql = "SELECT id,user_id,date,begin_time " +
+				"FROM attendances " +
+				"WHERE end_time IS NULL " +
+				"AND user_id = "
 				+ struser;
 
 		Map<String, Object> result = jdbcTemplate.queryForMap(sql);
 		System.out.println(result);
-		Object stdate = result.get("date");
-		Object stbegin_time = result.get("begin_time");
+		Object oid = result.get("id");
 		Date date = new Date();
 		String strtime = new SimpleDateFormat("HH:mm:ss").format(date);
-		sql = "UPDATE attendances SET end_time = '" + strtime + "' WHERE id = "+struser+" AND date = '" + stdate +
-					"' AND begin_time = '" + stbegin_time + "'";
-			this.jdbcTemplate.update(sql);
+		sql = "UPDATE attendances " +
+				"SET end_time = '" + strtime + "'" +
+				"WHERE id = " + oid;
+		this.jdbcTemplate.update(sql);
 
-		return "forward:kintai";
+		return "forward:kintai?taikin";
 	}
 }
