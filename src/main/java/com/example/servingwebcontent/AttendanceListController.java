@@ -1,5 +1,7 @@
 package com.example.servingwebcontent;
 
+import org.springframework.security.core.annotation.AuthenticationPrincipal;
+import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -31,7 +33,8 @@ public class AttendanceListController {
 	}
 
 	@GetMapping("/attendanceListStart")
-	public String hello() {
+	public String hello(@AuthenticationPrincipal MyUserDetails user) {
+		System.out.println(user.getUserId());
 		Date date = new Date();
 		String strday = new SimpleDateFormat("yyyy-MM-dd").format(date);
 		String strtime = new SimpleDateFormat("HH:mm:ss").format(date);
