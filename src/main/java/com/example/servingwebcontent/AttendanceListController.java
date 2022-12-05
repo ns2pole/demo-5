@@ -1,5 +1,7 @@
 package com.example.servingwebcontent;
 
+import org.springframework.security.core.annotation.AuthenticationPrincipal;
+import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -31,32 +33,34 @@ public class AttendanceListController {
 	}
 
 	@GetMapping("/attendanceListStart")
-	public String hello() {
+	public String hello(@AuthenticationPrincipal MyUserDetails user) {
 		Date date = new Date();
 		String strday = new SimpleDateFormat("yyyy-MM-dd").format(date);
 		String strtime = new SimpleDateFormat("HH:mm:ss").format(date);
-		String sql = "INSERT INTO Attendances (id,date,begin_time) Values (911,'"+strday+"','"+strtime+"')";
+		String struser = user.getUserId();
+		String sql = "INSERT INTO Attendances (id,date,begin_time) Values ("+struser+",'"+strday+"','"+strtime+"')";
 		this.jdbcTemplate.update(sql);
 		return "workplace";
 	}
 
 	@GetMapping("/atendanceListEnd")
-	public String end(){
+	public String end(@AuthenticationPrincipal MyUserDetails user){
+		String struser = user.getUserId();
 		String sql = "SELECT date,begin_time "
-					+"FROM attendances "
-					+"WHERE end_time IS NULL AND id = 911";
-		Map<String,Object> result = jdbcTemplate.queryForMap(sql);
+				+ "FROM attendances "
+				+ "WHERE end_time IS NULL AND id = "
+				+ struser;
+
+		Map<String, Object> result = jdbcTemplate.queryForMap(sql);
 		System.out.println(result);
 		Object stdate = result.get("date");
 		Object stbegin_time = result.get("begin_time");
-
-		if(stdate!=null) {
-			Date date = new Date();
-			String strtime = new SimpleDateFormat("HH:mm:ss").format(date);
-			sql = "UPDATE attendances SET end_time = '" + strtime + "' WHERE id = 911 AND date = '" + stdate +
+		Date date = new Date();
+		String strtime = new SimpleDateFormat("HH:mm:ss").format(date);
+		sql = "UPDATE attendances SET end_time = '" + strtime + "' WHERE id = "+struser+" AND date = '" + stdate +
 					"' AND begin_time = '" + stbegin_time + "'";
 			this.jdbcTemplate.update(sql);
-		}
-		return "workplace";
+
+		return "forward:kintai";
 	}
 }
