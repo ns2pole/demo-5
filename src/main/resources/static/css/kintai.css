@@ -3,3 +3,13 @@
     font-size: 30px;
     text-align: center;
 }
+
+.taikin{
+    width: 100%;
+    position: absolute;
+    top:  20%;
+    left: 50%;
+    transform: translate(-50%,-50%);
+    background-color: #CCCCCC;
+    text-align: center;
+}
