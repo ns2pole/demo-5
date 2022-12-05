@@ -21,7 +21,7 @@ public class LoginTest {
     @Test
     void init処理が走って200が返る() throws Exception {
         // andDo(print())でリクエスト・レスポンスを表示
-        this.mockMvc.perform(get("/login")).andDo(print())
+        this.mockMvc.perform(get("/loginForm")).andDo(print())
             .andExpect(status().isOk());
     }
 
