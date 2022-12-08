@@ -3,14 +3,13 @@ package com.example.servingwebcontent;
 import java.util.HashMap;
 import java.util.Map;
 import java.util.Optional;
- 
+
+import com.example.servingwebcontent.model.User;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.dao.EmptyResultDataAccessException;
 import org.springframework.jdbc.core.namedparam.NamedParameterJdbcTemplate;
 import org.springframework.stereotype.Repository;
- 
-import com.example.servingwebcontent.User;
- 
+
 @Repository
 public class UserAccountDao implements IUserAccountDao {
 

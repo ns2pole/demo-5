@@ -2,6 +2,7 @@ package com.example.servingwebcontent;
 
 import java.util.Collection;
 
+import com.example.servingwebcontent.model.User;
 import org.springframework.security.core.GrantedAuthority;
 import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.security.core.authority.AuthorityUtils;

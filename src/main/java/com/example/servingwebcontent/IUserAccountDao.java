@@ -1,5 +1,7 @@
 package com.example.servingwebcontent;
  
+import com.example.servingwebcontent.model.User;
+
 import java.util.Optional;
  
 public interface IUserAccountDao {

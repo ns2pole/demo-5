@@ -1,7 +1,13 @@
-package com.example.servingwebcontent;
- 
+package com.example.servingwebcontent.model;
+
+import javax.persistence.Entity;
+import javax.persistence.Id;
+import javax.persistence.Table;
+
+@Entity
+@Table(name = "users")
 public class User {
-     
+    @Id
     private int id;
     private String userId;
     private String password;

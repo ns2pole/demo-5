@@ -7,6 +7,44 @@
     <link th:href="@{/css/workPlace.css}" rel="stylesheet" type="text/css">
   </head>
   <body>
-    まだ空のユーザー管理ページ
+    <header class="header">
+      <nav class="global_nav">
+        <ul>
+          <li>
+            <form role="form" id="logout" th:action="@{/logout}" method="post" class="nav_item">
+              <a onclick="submit()">ログアウト</a>
+            </form>
+          </li>
+        </ul>
+      </nav>
+    </header>
+          <h1>ユーザー管理</h1>
+            <h2>ユーザー追加</h2>
+            <form th:action="@{/addUser}" method="post">
+                <tr>
+                  <th>ユーザー名</th>
+                  <td>
+                    <input type="text" name="username" />
+                  </td>
+                </tr>
+                <tr>
+                  <th>パスワード</th>
+                  <td>
+                    <input type="text" name="password" />
+                  </td>
+                </tr>
+                <tr>
+                  <th>権限</th>
+                  <td>
+                    <select name="role">
+                      <option value="ROLE_USER">一般ユーザー</option>
+                      <option value="ROLE_ADMIN">管理者</option>
+                    </select>
+                  </td>
+                </tr>
+              <button onclick="submit">登録</button>
+
+            </form>
+
   </body>
 </html>
