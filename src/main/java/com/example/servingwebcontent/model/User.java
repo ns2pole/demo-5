@@ -9,7 +9,6 @@ import javax.persistence.Table;
 public class User {
     @Id
     private int id;
-    private String userId;
     private String password;
     private String name;
 
@@ -20,9 +19,6 @@ public class User {
     }
     public void setId(int id) {
         this.id = id;
-    }
-    public void setUserId(String userId) {
-        this.userId = userId;
     }
     public String getPassword() {
         return password;
