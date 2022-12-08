@@ -16,8 +16,8 @@ public class WebSecurityConfig {
                 public SecurityFilterChain securityFilterChain(HttpSecurity http) throws Exception {
                         http.formLogin(login -> login
                                 .loginProcessingUrl("/login")
-                                .loginPage("/loginForm")
-                                .failureUrl("/loginForm")
+                                .loginPage("/")
+                                .failureUrl("/")
                                 .permitAll()
                         ).logout(logout -> logout
                                 .logoutSuccessUrl("/")
