@@ -1,7 +1,8 @@
 package com.example.servingwebcontent;
  
 import java.util.Optional;
- 
+
+import com.example.servingwebcontent.model.User;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.security.core.userdetails.UserDetailsService;

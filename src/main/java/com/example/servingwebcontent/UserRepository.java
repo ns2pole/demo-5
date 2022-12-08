@@ -1,15 +1,15 @@
 package com.example.servingwebcontent;
 
-import java.util.Optional;
+import com.example.servingwebcontent.model.User;
+import org.springframework.data.jpa.repository.JpaRepository;
 
+public interface UserRepository extends JpaRepository<User, Integer> {
 
-public interface UserRepository {
-
-    Optional<User> findById(String id);
-
-    User save(User user);
-
-    void deleteById(String id);
-
-    User findByUsernameEquals(String username);
+//    Optional<User> findById(String id);
+//
+//    User save(User user);
+//
+//    void deleteById(String id);
+//
+//    User findByUsernameEquals(String username);
 }
