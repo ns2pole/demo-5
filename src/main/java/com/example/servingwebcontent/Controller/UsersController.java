@@ -25,8 +25,10 @@ public class UsersController {
 	@PostMapping("/addUser")
 	public String add(@ModelAttribute User user) {
 		System.out.println(user.getPassword());
+		System.out.println(user.getName());
 		user.setPassword(passwordEncoder.encode(user.getPassword()));
 		userRepository.save(user);
+		System.out.println(user.getPassword());
 		return "users";
 	}
 

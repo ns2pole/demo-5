@@ -6,7 +6,7 @@ table構造をいじったので、setup.sqlを実行して下さい。(password
 
 ### users table(ユーザーテーブル)
 id INTEGER NOT NULL,
-user_name TEXT,
+name TEXT,
 password TEXT NOT NULL,
 auth TEXT,
 division_id INTEGER
@@ -46,14 +46,14 @@ setup.sqlを実行。
 
 
 ## ログイン ROLE_USER
-[user_name => user1, password => password1]
-[user_name => user2, password => password2]
-[user_name => user3, password => password3]
+[name => user1, password => password1]
+[name => user2, password => password2]
+[name => user3, password => password3]
 で入れる。
 
 ## ログイン ROLE_ADMIN
-[user_name => admin1, password => password1]
-[user_name => admin2, spassword => password2]
+[name => admin1, password => password1]
+[name => admin2, spassword => password2]
 で入れる。
 
 ## ログインは   を参考にした。
