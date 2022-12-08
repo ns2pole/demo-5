@@ -20,10 +20,8 @@ public class MyUserService implements UserDetailsService {
     @Override
     public UserDetails loadUserByUsername(String userName) throws UsernameNotFoundException {
         System.out.println("loadUserByUsernamecalled??");
-        System.out.println(userName);
         Optional<User> user = dao.findUser(userName);
         if(!user.isPresent()) {
-            System.out.println("errorrrr");
             throw new UsernameNotFoundException(userName + "が存在しません");
         }   
         return new MyUserDetails(user.get());

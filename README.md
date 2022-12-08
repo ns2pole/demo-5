@@ -3,7 +3,15 @@ table構造をいじったので、setup.sqlを実行して下さい。(password
 部署毎に勤怠状況一覧を作ってほしい(勘違いしてたが、中島くんにやってもらったのは3.1.2でした。3.1.5をやっていってもらうおう)
 
 ## dataBase構造
-### attendances table
+
+### users table(ユーザーテーブル)
+id INTEGER NOT NULL,
+user_name TEXT,
+password TEXT NOT NULL,
+auth TEXT,
+division_id INTEGER
+
+### attendances table(勤怠テーブル)
 id INTEGER NOT NULL,
 user_id INTEGER,
 date DATE,
@@ -14,18 +22,13 @@ rest_end_time TIME,
 work_place_id INTEGER,
 primary key(id));
 
-### users table
-id INTEGER NOT NULL,
-user_name TEXT,
-password TEXT NOT NULL,
-auth TEXT,
-division_id INTEGER
 
-### workplaces table
+
+### master_work_places table(勤務場所マスタテーブル)
 id(integer)
 name(text)
 
-### divisions table
+### divisions table(部署テーブル)
 id(integer)
 name(text)
 
