@@ -50,3 +50,24 @@ INSERT INTO attendances (id, user_id, work_place_id, date, begin_time, end_time,
 INSERT INTO attendances (id, user_id, work_place_id, date, begin_time, end_time, rest_start_time, rest_end_time) VALUES (23, 5, 2, '2022-11-13','10:00', '16:00', '12:00', '12:45');
 INSERT INTO attendances (id, user_id, work_place_id, date, begin_time, end_time, rest_start_time, rest_end_time) VALUES (24, 5, 1, '2022-11-14','10:30', '17:00', '12:00', '12:30');
 INSERT INTO attendances (id, user_id, work_place_id, date, begin_time, end_time, rest_start_time, rest_end_time) VALUES (25, 5, 2, '2022-11-15','11:00', '18:00', '12:00', '12:45');
+
+
+drop table divisions;
+CREATE TABLE divisions
+(id INTEGER NOT NULL,
+name TEXT,
+primary key(id));
+
+INSERT INTO attendances (id, name) VALUES (1, '本社');
+INSERT INTO attendances (id, name) VALUES (2, '支社');
+INSERT INTO attendances (id, name) VALUES (3, '営業所');
+
+
+drop table master_work_places;
+CREATE TABLE master_work_places
+(id INTEGER NOT NULL,
+name TEXT,
+primary key(id));
+
+INSERT INTO master_work_places (id, name) VALUES (1, '自宅');
+INSERT INTO master_work_places (id, name) VALUES (2, '会社');
