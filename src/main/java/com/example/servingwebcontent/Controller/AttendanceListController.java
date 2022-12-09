@@ -38,7 +38,7 @@ public class AttendanceListController {
 			String sql = "SELECT MAX(id) AS MAX_ID FROM attendances";
 			Map<String, Object> result = jdbcTemplate.queryForMap(sql);
 			id = (int) result.get("MAX_ID")+ 1;
-		}catch (Exception e){
+		} catch (Exception e){
 			System.out.println("0番目");
 		}
 		Date date = new Date();
