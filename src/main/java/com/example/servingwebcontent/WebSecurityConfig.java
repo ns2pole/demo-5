@@ -1,5 +1,6 @@
 package com.example.servingwebcontent;
 
+import com.example.servingwebcontent.Handler.MyAuthenticationSuccessHandler;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.security.config.annotation.web.builders.HttpSecurity;
@@ -28,7 +29,7 @@ public class WebSecurityConfig {
                                 .mvcMatchers("/divisions").hasRole("ADMIN")
                                 .mvcMatchers("/masterWorkPlaces").hasRole("ADMIN")
                                 .anyRequest().authenticated()
-                        ).formLogin().successHandler(new com.example.servingwebcontent.MyAuthenticationSuccessHandler());
+                        ).formLogin().successHandler(new MyAuthenticationSuccessHandler());
                         return http.build();
                 }
 

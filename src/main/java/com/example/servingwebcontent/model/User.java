@@ -3,6 +3,7 @@ package com.example.servingwebcontent.model;
 import javax.persistence.Entity;
 import javax.persistence.Id;
 import javax.persistence.Table;
+import java.util.ArrayList;
 
 @Entity
 @Table(name = "users")
@@ -11,9 +12,10 @@ public class User {
     private int id;
     private String password;
     private String name;
-
     private String auth;
- 
+
+    private int division_id;
+
     public int getId() {
         return id;
     }
@@ -36,4 +38,21 @@ public class User {
     public String getAuth() {return auth; }
 
     public void setAuth(String auth) { this.auth = auth; }
+
+    
+    //idでユーザのインスタンスを取得
+//    public static User getUserBy(id) {
+//        re
+//    }
+//
+//    //同じ部署に所属するユーザーの全Idを取得する
+//    public ArrayList<Integer> getUserIdsSameDivision() {
+//
+//        return
+//    }
+//
+//    //今ログインしているユーザーのインスタンスを作る
+//    User user = User.getUserBy(login_user_id);
+//    //同じ部署の全ユーザーIDを取得
+//    ArrayList<Integer> ids = user.getUserIdsSameDivision();
 }

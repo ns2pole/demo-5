@@ -1,4 +1,4 @@
-package com.example.servingwebcontent;
+package com.example.servingwebcontent.Handler;
 
 import java.io.IOException;
 
@@ -18,9 +18,7 @@ public class MyAuthenticationFailureHandler implements AuthenticationFailureHand
             HttpServletResponse httpServletResponse,
             AuthenticationException authenticationException)
             throws IOException, ServletException {
-
         String errorId = "";
-        // ExceptionからエラーIDをセットする
         if(authenticationException instanceof BadCredentialsException){
             errorId = "おかしなエラー";
         }

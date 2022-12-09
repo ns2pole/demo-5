@@ -1,4 +1,4 @@
-package com.example.servingwebcontent;
+package com.example.servingwebcontent.Handler;
 
 import org.springframework.security.core.Authentication;
 import org.springframework.security.web.authentication.AuthenticationSuccessHandler;
@@ -16,9 +16,7 @@ public class MyAuthenticationSuccessHandler implements AuthenticationSuccessHand
     
 	@Override
 	public void onAuthenticationSuccess(HttpServletRequest request, HttpServletResponse response, Authentication authentication) throws IOException, ServletException {
-        System.out.println("ROLE_USER");
 		Set<String> roles = AuthorityUtils.authorityListToSet(authentication.getAuthorities());
-        System.out.println(roles.contains("ROLE_USER"));
         if (roles.contains("ROLE_ADMIN")) {
             RedirectStrategy redirectStrategy = new DefaultRedirectStrategy();
             redirectStrategy.sendRedirect(request, response, "/users");
