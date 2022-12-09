@@ -1,7 +1,8 @@
 package com.example.servingwebcontent;
  
 import java.util.Optional;
- 
+
+import com.example.servingwebcontent.model.User;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.security.core.userdetails.UserDetailsService;
@@ -18,14 +19,13 @@ public class MyUserService implements UserDetailsService {
         this.dao = dao;
     }
     @Override
-    public UserDetails loadUserByUsername(String userName) throws UsernameNotFoundException {
+    public UserDetails loadUserByUsername(String name) throws UsernameNotFoundException {
         System.out.println("loadUserByUsernamecalled??");
-        System.out.println(userName);
-        Optional<User> user = dao.findUser(userName);
+        Optional<User> user = dao.findUserBy(name);
         if(!user.isPresent()) {
-            System.out.println("errorrrr");
-            throw new UsernameNotFoundException(userName + "が存在しません");
-        }   
+            throw new UsernameNotFoundException(name + "が存在しません");
+        }
+        System.out.println(new MyUserDetails(user.get()));
         return new MyUserDetails(user.get());
     }
 

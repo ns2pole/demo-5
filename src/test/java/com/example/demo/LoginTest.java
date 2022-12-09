@@ -17,22 +17,24 @@ public class LoginTest {
     @Autowired
     private MockMvc mockMvc;
 
-    // getリクエストでviewを指定し、httpステータスでリクエストの成否を判定
     @Test
     void init処理が走って200が返る() throws Exception {
         // andDo(print())でリクエスト・レスポンスを表示
-        this.mockMvc.perform(get("/login")).andDo(print())
+        this.mockMvc.perform(get("/")).andDo(print())
             .andExpect(status().isOk());
     }
 
     @Test
-    void test()  throws Exception {
+    void test() throws Exception {
         String result = this.mockMvc.perform(get("/login"))
-                            .andReturn()
-                            .getResponse()
-                            .getContentAsString();
-        System.out.println("result");
-        System.out.println(result);
-        System.out.println("result");
+            .andReturn()
+            .getResponse()
+            .getContentAsString();
+    }
+
+    @Test
+    void 直接attendanceListにアクセスしようとすると302が返る() throws Exception {
+        this.mockMvc.perform(get("/attendanceList"))
+            .andExpect(status().isFound());
     }
 }

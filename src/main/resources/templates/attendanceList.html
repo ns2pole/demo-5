@@ -12,10 +12,14 @@
       <nav class="global_nav">
         <ul>
           <li sec:authorize="hasRole('USER')"><a href="./kintai" class="nav_item">勤怠入力</a></li>
-          <li sec:authorize="hasRole('USER')"><a href="./workplace" class="nav_item">勤務場所登録</a></li>
-          <li sec:authorize="hasRole('USER')"><a href="./contact_address" class="nav_item">連絡先登録</a></li>
+          <li sec:authorize="hasRole('USER')"><a href="./workPlace" class="nav_item">勤務場所登録</a></li>
+          <li sec:authorize="hasRole('USER')"><a href="./contactAddress" class="nav_item">連絡先登録</a></li>
           <li sec:authorize="hasRole('ADMIN')"><a href="./attendanceList" class="nav_item">勤怠状況一覧表示</a></li>
-          <li sec:authorize="hasRole('USER')"><a href="./login" class="nav_item">ログアウト</a></li>
+          <li>
+            <form role="form" id="logout" th:action="@{/logout}" method="post" class="nav_item">
+              <a onclick="submit()">ログアウト</a>
+            </form>
+          </li>
         </ul>
       </nav>
     </header>
@@ -39,7 +43,8 @@
             <td th:text="${attendance.date}"></td>
             <td th:text="${attendance.begin_time}"></td>
             <td th:text="${attendance.end_time}"></td>
-            <td th:text="${attendance.rest}"></td>
+            <td th:text="${attendance.rest_start_time}"></td>
+            <td th:text="${attendance.rest_end_time}"></td>
           </tr>
         </table>
         </div>

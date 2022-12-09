@@ -1,9 +1,14 @@
-package com.example.servingwebcontent;
- 
+package com.example.servingwebcontent.model;
+
+import javax.persistence.Entity;
+import javax.persistence.Id;
+import javax.persistence.Table;
+
+@Entity
+@Table(name = "users")
 public class User {
-     
+    @Id
     private int id;
-    private String userId;
     private String password;
     private String name;
 
@@ -14,12 +19,6 @@ public class User {
     }
     public void setId(int id) {
         this.id = id;
-    }
-    public String getUserId() {
-        return userId;
-    }
-    public void setUserId(String userId) {
-        this.userId = userId;
     }
     public String getPassword() {
         return password;

@@ -1,18 +1,37 @@
-## dataBase構造
-### attendances table
-id(integer),
-user_id(integer),
-date(date),
-begin_time(time without time zone),
-end_time(time without time zone),
-rest(integer)
+アナウンス2022/12/05
+table構造をいじったので、setup.sqlを実行して下さい。(passwordは最下部参照)
+部署毎に勤怠状況一覧を作ってほしい(勘違いしてたが、中島くんにやってもらったのは3.1.2でした。3.1.5をやっていってもらうおう)
 
-### user table(修正する予定)
- id       | integer |           |          | 
- username | text    |           |          | 
- password | text    |           |          | 
- user_id  | text    |   
- auth     | text    |   
+## dataBase構造
+
+### users table(ユーザーテーブル)
+id INTEGER NOT NULL,
+name TEXT,
+password TEXT NOT NULL,
+auth TEXT,
+division_id INTEGER
+
+### attendances table(勤怠テーブル)
+id INTEGER NOT NULL,
+user_id INTEGER,
+date DATE,
+begin_time TIME,
+end_time TIME, 
+rest_start_time TIME,
+rest_end_time TIME,
+work_place_id INTEGER,
+primary key(id));
+
+
+
+### master_work_places table(勤務場所マスタテーブル)
+id(integer)
+name(text)
+
+### divisions table(部署テーブル)
+id(integer)
+name(text)
+
 
 ## 担当
 ### 中島俊介
@@ -22,22 +41,19 @@ rest(integer)
 
 ## 実行方法
 host環境(多くの人はwindowsだと思います)にpostgre環境を用意して、
-上述のtable構造(attendances tableなど)を作ることで、動作します。
-users_tableには「username =>'user',password => '$2a$08$Skj/R3IthjGG0P7KDJ/S3eaWXFGD9ioxpL44kpD7Tq5Gl5yaBPDfq'」というデータを追加して下さい。
-
-※postgresでselectを行うと下記のようになるように。
-postgres=# SELECT * FROM users;
- id | username |                           password                           | user_id |    auth    
-----+----------+--------------------------------------------------------------+---------+------------
-  1 | user     | $2a$08$Skj/R3IthjGG0P7KDJ/S3eaWXFGD9ioxpL44kpD7Tq5Gl5yaBPDfq | 1       | ROLE_USER
-  2 | admin    | $2a$08$Skj/R3IthjGG0P7KDJ/S3eaWXFGD9ioxpL44kpD7Tq5Gl5yaBPDfq | 2       | ROLE_ADMIN
-(2 rows)
-
+上述のtable構造(attendances table,users tableなど)を作ることで、動作します。
+setup.sqlを実行してこれらのテーブルとデータを生成できます。
 
 
 ## ログイン ROLE_USER
-[username => user,password => password]で入れる。
-## ログイン ROLE_ADMIN
-[username => admin,password => password]で入れる。
+[name => user1, password => password1]
+[name => user2, password => password2]
+[name => user3, password => password3]
+で入れる。
 
-## ログインは https://itmaroblog.com/webapplication-java-spring_8/を参考にした。
+## ログイン ROLE_ADMIN
+[name => admin1, password => password1]
+[name => admin2, spassword => password2]
+で入れる。
+
+## ログインは   を参考にした。

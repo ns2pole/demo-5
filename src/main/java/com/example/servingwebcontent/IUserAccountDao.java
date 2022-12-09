@@ -1,10 +1,10 @@
 package com.example.servingwebcontent;
  
+import com.example.servingwebcontent.model.User;
+
 import java.util.Optional;
  
-import com.example.servingwebcontent.User;
-
 public interface IUserAccountDao {
     // Userを取得
-    Optional<User> findUser(String userName);
+    Optional<User> findUserBy(String name);
 }
