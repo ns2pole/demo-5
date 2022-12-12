@@ -24,28 +24,32 @@
       </nav>
     </header>
     <div class="kintai">
+      <div class="taikin" th:if="${param.taikin}">
+        退勤しました。
+      </div>
+      <div class="error" th:if="${param.error}" th:text = "${error}"></div>
       <p>こんにちは、<span sec:authentication="principal.username"></span>さん</p>
       <div sec:authorize="hasRole('ADMIN')">
         <p>今は<b>ADMIN</b>権限でログインしています5。</p> 
       </div>
-      <div class="taikin" th:if="${param.taikin}">
-        退勤しました。
-      </div>
-      <div id="state">状態：未出勤</div>
+
+      <div id="state" th:text = "${state}"></div>
       <div id="nowTime" ></div>
       <div class="attend-leave-buttons">
-        <form action="/attendwork" method="GET">
+        <form action="/attendwork" method="get">
           <button id="attendwork">出勤</button>
         </form>
-        <form action="/leavingwork" method="GET">
+        <form action="/leavingwork" method="get">
           <button id="leavingwork">退勤</button>
         </form>
       </div>
       <div class="rest-buttons">
-        <form action="/teststart" method="GET">
+        <form action="/startrest" method="get">
           <button id="rest-start">休憩開始</button>
         </form>
-        <button id="rest-end">休憩終了</button>
+        <form action="/endrest" method="get">
+          <button id="rest-end">休憩終了</button>
+        </form>
       </div>
     </div>
     <script type="text/javascript" th:src="@{/js/main.js}"></script>
