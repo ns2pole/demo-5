@@ -34,15 +34,17 @@
       <div id="state">状態：未出勤</div>
       <div id="nowTime" ></div>
       <div class="attend-leave-buttons">
-        <form action="/attendanceListStart" method="GET">
+        <form action="/attendwork" method="GET">
           <button id="attendwork">出勤</button>
         </form>
-        <form action="/atendanceListEnd" method="GET">
+        <form action="/leavingwork" method="GET">
           <button id="leavingwork">退勤</button>
         </form>
       </div>
       <div class="rest-buttons">
-        <button id="rest-start">休憩開始</button>
+        <form action="/teststart" method="GET">
+          <button id="rest-start">休憩開始</button>
+        </form>
         <button id="rest-end">休憩終了</button>
       </div>
     </div>
