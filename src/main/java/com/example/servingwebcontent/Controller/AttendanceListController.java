@@ -1,4 +1,4 @@
-package com.example.servingwebcontent.Controller;
+package com.example.servingwebcontent.controller;
 
 import org.springframework.security.core.annotation.AuthenticationPrincipal;
 import org.springframework.stereotype.Controller;

@@ -1,7 +1,7 @@
-package com.example.servingwebcontent.Controller;
+package com.example.servingwebcontent.controller;
 
 import com.example.servingwebcontent.model.User;
-import com.example.servingwebcontent.UserRepository;
+import com.example.servingwebcontent.repository.UserRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
