@@ -3,7 +3,6 @@ package com.example.servingwebcontent.model;
 import javax.persistence.Entity;
 import javax.persistence.Id;
 import javax.persistence.Table;
-import java.util.ArrayList;
 
 @Entity
 @Table(name = "users")
@@ -12,7 +11,8 @@ public class User {
     private int id;
     private String password;
     private String name;
-    private String auth;
+
+    private String role;
 
     private int division_id;
 
@@ -35,11 +35,14 @@ public class User {
         this.name = name;
     }
 
-    public String getAuth() {return auth; }
+    public String getRole() { return role; }
 
-    public void setAuth(String auth) { this.auth = auth; }
+    public void setRole(String role) { this.role = role; }
 
-    
+    public int getDivisionId() { return division_id;}
+
+    public void setDivisionId(int divisionId) { this.division_id = divisionId; }
+
     //idでユーザのインスタンスを取得
 //    public static User getUserBy(id) {
 //        re

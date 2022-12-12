@@ -11,19 +11,13 @@ import org.springframework.jdbc.core.namedparam.NamedParameterJdbcTemplate;
 import org.springframework.stereotype.Repository;
 
 @Repository
-public class UserAccountDao implements IUserAccountDao {
+public class UserAccountDao {
 
-
-    private final NamedParameterJdbcTemplate jdbcTemplate;
-     
     @Autowired
-    public UserAccountDao(NamedParameterJdbcTemplate jdbcTemplate) {
-        this.jdbcTemplate = jdbcTemplate;
-    }
+    private NamedParameterJdbcTemplate jdbcTemplate;
      
-    @Override
     public Optional<User> findUserBy(String name) {
-        String sql = "SELECT id, password, auth, name " + "FROM users " + "WHERE name = :name";
+        String sql = "SELECT id, password, role, name " + "FROM users " + "WHERE name = :name";
         Map<String, Object> param = new HashMap<>();
         param.put("name", name);
         User user = new User();
@@ -32,12 +26,11 @@ public class UserAccountDao implements IUserAccountDao {
             user.setId((int) result.get("id"));
             user.setPassword((String)result.get("password"));
             user.setName((String)result.get("name"));
-            user.setAuth((String)result.get("auth"));
+            user.setRole((String)result.get("role"));
         } catch(EmptyResultDataAccessException e){
             Optional <User> userOpl = Optional.ofNullable(user);
             return userOpl;
         }
-
         // ラップする
         Optional <User> userOpl = Optional.ofNullable(user);
         return userOpl;

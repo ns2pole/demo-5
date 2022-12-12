@@ -8,8 +8,6 @@ import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.security.core.authority.AuthorityUtils;
 
 public class MyUserDetails implements UserDetails {
-
-
 	private static final long serialVersionUID = 1L;
 	
 	private final User user;
@@ -54,7 +52,7 @@ public class MyUserDetails implements UserDetails {
 
 	@Override
 	public Collection<? extends GrantedAuthority> getAuthorities() {
-		return AuthorityUtils.createAuthorityList(user.getAuth());
+		return AuthorityUtils.createAuthorityList(user.getRole());
 	}
 
 }

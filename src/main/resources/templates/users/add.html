@@ -18,19 +18,7 @@
         </ul>
       </nav>
     </header>
-          <h1>ユーザー管理</h1>
-            <h2>ユーザー一覧</h2>
-            <table class="users-table">
-              <tr>
-                <th>日付</th>
-                <th>開始</th>
-              </tr>
-              <tr th:each="user : ${users}">
-                <td th:text="${user.id}"></td>
-                <td th:text="${user.name}"></td>
-              </tr>
-            </table>
-            <h2>ユーザー追加</h2>
+          <h1>ユーザー新規登録</h1>
             <form th:action="@{/user/create}" method="post">
                 <tr>
                   <th>ユーザー名</th>
