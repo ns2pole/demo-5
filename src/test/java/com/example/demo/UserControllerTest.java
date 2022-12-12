@@ -27,15 +27,16 @@ class UserControllerTest {
 
     
 
+
     @Test
     public void userCreateTest() throws Exception {
         User user = new User();
-        user.setId(111);
+        user.setId(1111);
         user.setName("test");
         user.setPassword("test");
-        user.setAuth("USER_ROLE");
+        user.setRole("USER_ROLE");
         userRepository.save(user);
-        Optional<User> newUser = userRepository.findById(11);
+        Optional<User> newUser = userRepository.findById(113);
         //続きを書く。
     }
 }

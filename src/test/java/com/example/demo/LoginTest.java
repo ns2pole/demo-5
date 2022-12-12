@@ -24,13 +24,13 @@ public class LoginTest {
             .andExpect(status().isOk());
     }
 
-    @Test
-    void test() throws Exception {
-        String result = this.mockMvc.perform(get("/login"))
-            .andReturn()
-            .getResponse()
-            .getContentAsString();
-    }
+//    @Test
+//    void test() throws Exception {
+//        String result = this.mockMvc.perform(get("/login"))
+//            .andReturn()
+//            .getResponse()
+//            .getContentAsString();
+//    }
 
     @Test
     void 直接attendanceListにアクセスしようとすると302が返る() throws Exception {
