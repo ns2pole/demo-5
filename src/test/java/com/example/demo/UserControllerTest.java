@@ -34,7 +34,7 @@ class UserControllerTest {
         user.setId(1111);
         user.setName("test");
         user.setPassword("test");
-        user.setAuth("USER_ROLE");
+        user.setRole("USER_ROLE");
         userRepository.save(user);
         Optional<User> newUser = userRepository.findById(113);
         //続きを書く。

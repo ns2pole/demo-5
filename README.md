@@ -8,7 +8,7 @@ table構造をいじったので、setup.sqlを実行して下さい。(password
 id INTEGER NOT NULL,
 name TEXT,
 password TEXT NOT NULL,
-auth TEXT,
+role TEXT,
 division_id INTEGER
 
 ### attendances table(勤怠テーブル)
@@ -37,6 +37,7 @@ name(text)
 ### 中島俊介
 ログイン画面 CSS
 勤怠入力
+勤怠状況一覧
 
 
 ## 実行方法
@@ -56,4 +57,4 @@ setup.sqlを実行してこれらのテーブルとデータを生成できま�
 [name => admin2, spassword => password2]
 で入れる。
 
-## ログインは   を参考にした。
+## ログインは https://itmaroblog.com/webapplication-java-spring_8/を参考にした。

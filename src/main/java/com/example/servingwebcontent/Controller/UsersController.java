@@ -17,17 +17,30 @@ public class UsersController {
 
 	@Autowired
 	UserRepository userRepository;
+	
 	@GetMapping("/users")
 	public String index(Model model) {
-		return "users";
+		Iterable<User> users = userRepository.findAll();
+		model.addAttribute("users", users);
+		return "users/index";
 	}
 
-	@PostMapping("/addUser")
-	public String add(@ModelAttribute User user) {
+	@GetMapping("/user/add")
+	public String add() {
+		return "users/add";
+	}
+
+	@PostMapping("/user/create")
+	public String create(@ModelAttribute User user, Model model) {
 		user.setPassword(passwordEncoder.encode(user.getPassword()));
 		userRepository.save(user);
-		return "users";
+		return "users/index";
 	}
+
+
+
+
+
 
 
 }

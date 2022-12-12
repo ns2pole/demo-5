@@ -1,0 +1,36 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org" xmlns:sec="http://www.thymeleaf.org/thymeleaf-extras-springsecurity5">
+  <head>
+    <meta charset="utf-8" />
+    <title></title>
+    <link th:href="@{/css/global.css}" rel="stylesheet" type="text/css">
+    <link th:href="@{/css/workPlace.css}" rel="stylesheet" type="text/css">
+  </head>
+  <body>
+    <header class="header">
+      <nav class="global_nav">
+        <ul>
+          <li>
+            <form role="form" id="logout" th:action="@{/logout}" method="post" class="nav_item">
+              <a onclick="submit()">ログアウト</a>
+            </form>
+          </li>
+        </ul>
+      </nav>
+    </header>
+    <h1>ユーザー一覧</h1>
+    <button onclick="location.href='/user/add'">ユーザー新規登録</button>
+    <table class="users-table">
+      <tr>
+        <th>ID</th>
+        <th>氏名</th>
+        <th></th>
+      </tr>
+      <tr th:each="user : ${users}">
+        <td th:text="${user.id}"></td>
+        <td th:text="${user.name}"></td>
+        <td th:text="編集"></td>
+      </tr>
+    </table>
+  </body>
+</html>
