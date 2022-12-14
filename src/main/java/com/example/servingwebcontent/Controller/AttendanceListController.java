@@ -1,10 +1,10 @@
 package com.example.servingwebcontent.controller;
 
+import com.example.servingwebcontent.model.User;
 import org.springframework.security.core.annotation.AuthenticationPrincipal;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
-import com.example.servingwebcontent.MyUserDetails;
 import java.util.Date;
 import java.util.List;
 import java.util.Map;
@@ -19,7 +19,7 @@ public class AttendanceListController {
 	private JdbcTemplate jdbcTemplate;
 	
 	@GetMapping("/attendanceList")
-	public String attendanceList(Model model ,@AuthenticationPrincipal MyUserDetails user) {
+	public String attendanceList(Model model ,@AuthenticationPrincipal User user) {
 		int userId = user.getId();
 		String sql = "select id,date,begin_time,end_time,rest_start_time,rest_end_time from attendances " +
 				"where user_id = "+userId;
@@ -30,7 +30,7 @@ public class AttendanceListController {
 	}
 
 	@GetMapping("/attendanceListStart")
-	public String hello(@AuthenticationPrincipal MyUserDetails user) {
+	public String hello(@AuthenticationPrincipal User user) {
 		int userId = user.getId();
 		System.out.println(user.getId());
 		int id = 0;
@@ -51,7 +51,7 @@ public class AttendanceListController {
 	}
 
 	@GetMapping("/atendanceListEnd")
-	public String end(@AuthenticationPrincipal MyUserDetails user) {
+	public String end(@AuthenticationPrincipal User user) {
 		int userId = user.getId();
 		String sql = "SELECT id,user_id,date,begin_time " +
 				"FROM attendances " +

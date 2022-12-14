@@ -5,6 +5,7 @@ import java.util.Optional;
 import com.example.servingwebcontent.model.User;
 import com.example.servingwebcontent.repository.UserRepository;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.security.core.authority.AuthorityUtils;
 import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.security.core.userdetails.UserDetailsService;
 import org.springframework.security.core.userdetails.UsernameNotFoundException;
@@ -19,11 +20,9 @@ public class UserService implements UserDetailsService {
 
     @Override
     public UserDetails loadUserByUsername(String name) throws UsernameNotFoundException {
-        Optional<User> user = userRepository.findByName(name);
-        if(!user.isPresent()) {
-            throw new UsernameNotFoundException(name + "が存在しません");
-        }
-        return new MyUserDetails(user.get());
+        User user = userRepository.findByName(name)
+            .orElseThrow(() -> new UsernameNotFoundException(name + " not found"));
+        return user;
     }
 
 }
