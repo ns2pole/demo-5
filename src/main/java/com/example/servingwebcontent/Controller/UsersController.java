@@ -5,9 +5,7 @@ import com.example.servingwebcontent.repository.UserRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.ModelAttribute;
-import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.*;
 import org.springframework.security.crypto.password.PasswordEncoder;
 
 @Controller
@@ -33,15 +31,22 @@ public class UsersController {
 	@PostMapping("/user/create")
 	public String create(@ModelAttribute User user) {
 		user.setPassword(passwordEncoder.encode(user.getPassword()));
-		
 		userRepository.save(user);
 		return "redirect:/users";
 	}
 
 
+	@GetMapping("/user/edit/{id}")
+	public String edit(@PathVariable int id, Model model) {
+		model.addAttribute("user", userRepository.findById(id).get());
+		return "users/edit";
+	}
 
-
-
-
+	@PostMapping("/user/update/{id}")
+	public String update(@ModelAttribute User user) {
+		user.setPassword(passwordEncoder.encode(user.getPassword()));
+		userRepository.save(user);
+		return "redirect:/users";
+	}
 
 }
