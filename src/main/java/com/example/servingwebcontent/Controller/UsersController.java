@@ -31,10 +31,11 @@ public class UsersController {
 	}
 
 	@PostMapping("/user/create")
-	public String create(@ModelAttribute User user, Model model) {
+	public String create(@ModelAttribute User user) {
 		user.setPassword(passwordEncoder.encode(user.getPassword()));
+		
 		userRepository.save(user);
-		return "users/index";
+		return "redirect:/users";
 	}
 
 
