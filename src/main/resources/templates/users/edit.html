@@ -51,9 +51,11 @@
                   </td>
                 </tr>
 
-              <button onclick="submit">登録</button>
+              <button onclick="submit">更新</button>
 
             </form>
-
+            <form th:action="@{/user/delete/{id}(id=*{user.id})} "} method="post">
+              <button onclick="submit">削除</button>
+            </form>
   </body>
 </html>

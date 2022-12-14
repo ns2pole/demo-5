@@ -49,4 +49,10 @@ public class UsersController {
 		return "redirect:/users";
 	}
 
+
+	@PostMapping("/user/delete/{id}")
+	public String delete(@ModelAttribute User user) {
+		userRepository.delete(user);
+		return "redirect:/users";
+	}
 }
