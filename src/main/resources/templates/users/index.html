@@ -24,11 +24,14 @@
       <tr>
         <th>ID</th>
         <th>氏名</th>
-        <th></th>
+        <th>部署</th>
+        <th>権限</th>
       </tr>
       <tr th:each="user : ${users}">
         <td th:text="${user.id}"></td>
         <td th:text="${user.name}"></td>
+        <td th:text="${user.division_id}"></td>
+        <td th:text="${user.role}"></td>
         <td th:text="編集"></td>
       </tr>
     </table>

@@ -1,13 +1,18 @@
 package com.example.servingwebcontent.model;
 
+import lombok.Getter;
 import org.springframework.security.core.GrantedAuthority;
 import org.springframework.security.core.authority.AuthorityUtils;
 import org.springframework.security.core.userdetails.UserDetails;
 
 import javax.persistence.*;
 import java.util.Collection;
+import lombok.Getter;
+import lombok.Setter;
 
 @Entity
+@Getter
+@Setter
 @Table(name = "users")
 public class User implements UserDetails {
     @Id
@@ -17,36 +22,6 @@ public class User implements UserDetails {
     private String name;
     private String role;
     private int division_id;
-
-    public void setId(int id) {
-        this.id = id;
-    }
-    public void setPassword(String password) {
-        this.password = password;
-    }
-    public String getName() {
-        return name;
-    }
-    public void setName(String name) {
-        this.name = name;
-    }
-
-    public String getRole() { return role; }
-
-    public void setRole(String role) { this.role = role; }
-
-    public int getDivisionId() { return division_id;}
-
-    public void setDivisionId(int divisionId) { this.division_id = divisionId; }
-
-
-    public int getId() {
-        return this.id;
-    }
-    @Override
-    public String getPassword() {
-        return this.password;
-    }
 
     @Override
     public String getUsername() {
@@ -77,4 +52,5 @@ public class User implements UserDetails {
     public Collection<? extends GrantedAuthority> getAuthorities() {
         return AuthorityUtils.createAuthorityList(this.getRole());
     }
+
 }

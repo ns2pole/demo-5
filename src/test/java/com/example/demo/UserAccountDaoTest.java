@@ -16,9 +16,6 @@ import static org.junit.jupiter.api.Assertions.assertEquals;
 @Sql({"/setup.sql"})
 
 class UserAccountDaoTest {
-    @Autowired
-    private JdbcTemplate jdbcTemplate;
-
     //mockMvc TomcatサーバへデプロイすることなくHttpリクエスト・レスポンスを扱うためのMockオブジェクト
     @Autowired
     UserRepository userRepository;
