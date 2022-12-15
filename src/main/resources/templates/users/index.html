@@ -11,6 +11,7 @@
         <ul>
           <li sec:authorize="hasRole('ADMIN')"><a href="./divisions" class="nav_item">部署管理</a></li>
           <li sec:authorize="hasRole('ADMIN')"><a href="./masterWorkPlaces" class="nav_item">勤務場所管理</a></li>
+          <li sec:authorize="hasRole('ADMIN')"><a href="./attendanceHistories" class="nav_item">勤怠履歴一覧</a></li>
           <li>
             <form role="form" id="logout" th:action="@{/logout}" method="post" class="nav_item">
               <a onclick="submit()">ログアウト</a>
