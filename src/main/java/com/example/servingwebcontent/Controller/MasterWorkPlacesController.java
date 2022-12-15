@@ -6,7 +6,7 @@ import org.springframework.web.bind.annotation.GetMapping;
 @Controller
 public class MasterWorkPlacesController {
 	@GetMapping("/masterWorkPlaces")
-	public String workPlace() {
+	public String index() {
 		return "masterWorkPlaces";
 	}
 

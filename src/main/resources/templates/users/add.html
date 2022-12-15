@@ -4,7 +4,6 @@
     <meta charset="utf-8" />
     <title></title>
     <link th:href="@{/css/global.css}" rel="stylesheet" type="text/css">
-    <link th:href="@{/css/workPlace.css}" rel="stylesheet" type="text/css">
   </head>
   <body>
     <header class="header">
@@ -18,8 +17,9 @@
         </ul>
       </nav>
     </header>
-          <h1>ユーザー新規登録</h1>
+          <h3>ユーザー新規登録</h3>
             <form th:action="@{/user/create}" method="post">
+              <table>
                 <tr>
                   <th>ユーザー名</th>
                   <td>
@@ -50,7 +50,7 @@
                     </select>
                   </td>
                 </tr>
-
+              </table>
               <button onclick="submit">登録</button>
 
             </form>

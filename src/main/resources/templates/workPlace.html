@@ -28,10 +28,10 @@
           <h1>勤務場所登録</h1>
         </div>
         <h2>本日の勤務場所を登録して下さい</h2>
-        <select id="department">
-          <option value="1">自宅</option>
-          <option value="2">東京本社</option>
-          <option value="3">営業所</option>
+        <select>
+          <div th:each="workplace : ${workplaces}">
+          <option value="${workplace.id}" th:text="${workplace.name}"></option>
+          </div>
         </select>
         <input type="button" value="登録" onclick="registDepartment();"><br>
       </div>

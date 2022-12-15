@@ -6,3 +6,13 @@ table {
 table td, th {
 	border: 1px solid black;
 }
+
+input[type="button"] {
+    background-color: #4CAF50;
+    border: none;
+    color: white;
+    padding: 10px 12px;
+    font-size: 21px;
+    cursor: pointer;
+}
+

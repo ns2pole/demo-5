@@ -6,7 +6,7 @@ import org.springframework.web.bind.annotation.GetMapping;
 @Controller
 public class DivisionsController {
 	@GetMapping("/divisions")
-	public String division() {
+	public String index() {
 		return "divisions";
 	}
 
