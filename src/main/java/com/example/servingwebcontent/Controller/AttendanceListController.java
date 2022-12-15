@@ -19,14 +19,14 @@ public class AttendanceListController {
 	private JdbcTemplate jdbcTemplate;
 	
 	@GetMapping("/attendanceList")
-	public String attendanceList(Model model ,@AuthenticationPrincipal User user) {
+	public String index(Model model ,@AuthenticationPrincipal User user) {
 		int userId = user.getId();
 		String sql = "select id,date,begin_time,end_time,rest_start_time,rest_end_time from attendances " +
 				"where user_id = "+userId;
 //		String sql = "select id,date from \"attendances\"";
 		List<Map<String, Object>> attendances = this.jdbcTemplate.queryForList(sql);
 		model.addAttribute("attendances", attendances);
-		return "attendanceList";
+		return "roleUser/attendanceList";
 	}
 
 	@GetMapping("/attendanceListStart")

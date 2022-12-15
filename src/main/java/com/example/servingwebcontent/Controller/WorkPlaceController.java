@@ -13,7 +13,7 @@ public class WorkPlaceController {
 	@GetMapping("/workPlace")
 	public String index(Model model) {
 		model.addAttribute("workplaces", workPlaceRepository.findAll());
-		return "workPlace";
+		return "roleUser/workPlace";
 	}
 
 }

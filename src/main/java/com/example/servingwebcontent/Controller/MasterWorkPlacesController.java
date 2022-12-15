@@ -17,7 +17,7 @@ public class MasterWorkPlacesController {
 	public String index(Model model) {
 		List<WorkPlace> workPlaceList = workPlaceRepository.findAll();
 		model.addAttribute("workplaces", workPlaceList);
-		return "masterWorkPlaces/index";
+		return "roleAdmin/masterWorkPlaces/index";
 	}
 
 }

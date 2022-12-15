@@ -22,7 +22,7 @@ public class UsersController {
 	@GetMapping("/users")
 	public String index(Model model) {
 		model.addAttribute("users", userRepository.findAll());
-		return "users/index";
+		return "roleAdmin/users/index";
 	}
 
 	@GetMapping("/user/add")

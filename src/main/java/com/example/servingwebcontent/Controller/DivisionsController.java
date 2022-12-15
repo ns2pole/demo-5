@@ -16,7 +16,7 @@ public class DivisionsController {
 	@GetMapping("/divisions")
 	public String index(Model model) {
 		model.addAttribute("divisions", divisionRepository.findAll());
-		return "divisions";
+		return "roleAdmin/divisions";
 	}
 
 }

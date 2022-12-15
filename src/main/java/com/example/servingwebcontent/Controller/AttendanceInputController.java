@@ -10,7 +10,7 @@ public class AttendanceInputController {
 	@GetMapping("/attendanceInput")
 	public String index(@RequestParam(name="name", required=false, defaultValue="World") String name, Model model) {
 		model.addAttribute("name", name);
-		return "attendanceInput";
+		return "roleUser/attendanceInput";
 	}
 
 }

@@ -12,7 +12,7 @@ public class AttendanceHistoryController {
 
 	@GetMapping("/attendanceHistories")
 	public String index() {
-		return "attendanceHistories";
+		return "roleAdmin/attendanceHistories";
 	}
 
 }
