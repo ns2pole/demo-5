@@ -1,6 +1,7 @@
 package com.example.servingwebcontent.controller;
 
 import com.example.servingwebcontent.model.User;
+import com.example.servingwebcontent.repository.DivisionRepository;
 import com.example.servingwebcontent.repository.UserRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
@@ -15,16 +16,18 @@ public class UsersController {
 
 	@Autowired
 	UserRepository userRepository;
-	
+	@Autowired
+	DivisionRepository divisionRepository;
+
 	@GetMapping("/users")
 	public String index(Model model) {
-		Iterable<User> users = userRepository.findAll();
-		model.addAttribute("users", users);
+		model.addAttribute("users", userRepository.findAll());
 		return "users/index";
 	}
 
 	@GetMapping("/user/add")
-	public String add() {
+	public String add(Model model) {
+		model.addAttribute("divisions", divisionRepository.findAll());
 		return "users/add";
 	}
 
@@ -39,6 +42,7 @@ public class UsersController {
 	@GetMapping("/user/edit/{id}")
 	public String edit(@PathVariable int id, Model model) {
 		model.addAttribute("user", userRepository.findById(id).get());
+		model.addAttribute("divisions", divisionRepository.findAll());
 		return "users/edit";
 	}
 

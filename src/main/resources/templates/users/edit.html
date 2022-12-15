@@ -35,9 +35,10 @@
                 <tr>
                   <th>部署</th>
                   <td>
-                    <select name="division_id">
-                      <option value="1">部署1</option>
-                      <option value="2">部署2</option>
+                    <select name="division_id" >
+                      <div th:each="division : ${divisions}">
+                        <option th:value="${division.id}" th:text="${division.name}"></option>
+                      </div>
                     </select>
                   </td>
                 </tr>
