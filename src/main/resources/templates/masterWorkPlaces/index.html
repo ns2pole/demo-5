@@ -7,6 +7,9 @@
     <link th:href="@{/css/workPlace.css}" rel="stylesheet" type="text/css">
   </head>
   <body>
-    まだ空の勤務場所管理ページ
+    勤務場所一覧
+    <div th:each="workplace : ${workplaces}">
+      <div th:text="${workplace.name}"></option>
+    </div>
   </body>
 </html>

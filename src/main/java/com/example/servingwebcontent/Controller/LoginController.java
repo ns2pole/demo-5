@@ -6,10 +6,9 @@ import org.springframework.ui.Model;
 
 @Controller
 public class LoginController {
-
 	@GetMapping("/")
 	public String index(Model model) {
-		return "loginForm";
+		return "login";
 	}
 
 }

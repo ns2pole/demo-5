@@ -69,6 +69,6 @@ public class AttendanceListController {
 				"WHERE id = " + oid;
 		this.jdbcTemplate.update(sql);
 
-		return "forward:kintai?taikin";
+		return "forward:attendanceInput?taikin";
 	}
 }

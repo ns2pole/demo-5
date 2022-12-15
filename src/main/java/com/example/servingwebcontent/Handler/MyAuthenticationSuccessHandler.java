@@ -22,7 +22,7 @@ public class MyAuthenticationSuccessHandler implements AuthenticationSuccessHand
             redirectStrategy.sendRedirect(request, response, "/users");
         }else if(roles.contains("ROLE_USER")){
             RedirectStrategy redirectStrategy = new DefaultRedirectStrategy();
-            redirectStrategy.sendRedirect(request, response, "/kintai");
+            redirectStrategy.sendRedirect(request, response, "/attendanceInput");
         }
 
 	}
