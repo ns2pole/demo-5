@@ -62,13 +62,3 @@ primary key(id));
 INSERT INTO divisions (id, name) VALUES (1, '本社');
 INSERT INTO divisions (id, name) VALUES (2, '支社');
 INSERT INTO divisions (id, name) VALUES (3, '営業所');
-
-
-drop table work_places;
-CREATE TABLE work_places
-(id  INTEGER NOT NULL,
-name TEXT,
-primary key(id));
-
-    INSERT INTO work_places (id, name) VALUES (1, '自宅');
-INSERT INTO work_places (id, name) VALUES (2, '会社');

@@ -29,8 +29,8 @@
         </div>
         <h2>本日の勤務場所を登録して下さい</h2>
         <select>
-          <div th:each="workplace : ${workplaces}">
-            <option value="${workplace.id}" th:text="${workplace.name}"></option>
+          <div th:each="workplace : ${workPlaces}">
+            <option th:value="${workplace.ordinal()}" th:text="${workplace.displayStr}"></option>
           </div>
         </select>
         <input type="button" value="登録" onclick="registDepartment();"><br>
