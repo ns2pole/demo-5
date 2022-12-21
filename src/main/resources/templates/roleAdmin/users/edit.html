@@ -4,7 +4,6 @@
     <meta charset="utf-8" />
     <title></title>
     <link th:href="@{/css/global.css}" rel="stylesheet" type="text/css">
-    <link th:href="@{/css/workPlace.css}" rel="stylesheet" type="text/css">
   </head>
   <body>
     <header class="header">
@@ -18,18 +17,28 @@
         </ul>
       </nav>
     </header>
-          <h1>ユーザー新規登録</h1>
-            <form th:action="@{/user/create}" method="post">
+          <h1>ユーザー編集</h1>
+            <form th:action="@{/user/update/{id}(id=*{user.id})} "} method="post">
                 <tr>
                   <th>ユーザー名</th>
                   <td>
-                    <input type="text" name="name" />
+                    <input type="text" name="name" th:value="${user.name}"/>
                   </td>
                 </tr>
                 <tr>
                   <th>パスワード</th>
                   <td>
                     <input type="text" name="password" />
+                  </td>
+                </tr>
+                <tr>
+                  <th>部署</th>
+                  <td>
+                    <select name="division_id" >
+                      <div th:each="division : ${divisions}">
+                        <option th:value="${division.id}" th:text="${division.name}"></option>
+                      </div>
+                    </select>
                   </td>
                 </tr>
                 <tr>
@@ -41,18 +50,12 @@
                     </select>
                   </td>
                 </tr>
-                <tr>
-                  <th>部署</th>
-                  <td>
-                    <select name="division_id">
-                      <option value="1">部署1</option>
-                      <option value="2">部署2</option>
-                    </select>
-                  </td>
-                </tr>
-              <button onclick="submit">登録</button>
+
+              <button onclick="submit">更新</button>
 
             </form>
-
+            <form th:action="@{/user/delete/{id}(id=*{user.id})} "} method="post">
+              <button onclick="submit">削除</button>
+            </form>
   </body>
 </html>

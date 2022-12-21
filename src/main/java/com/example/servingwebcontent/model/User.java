@@ -1,61 +1,56 @@
 package com.example.servingwebcontent.model;
 
-import javax.persistence.Entity;
-import javax.persistence.Id;
-import javax.persistence.Table;
+import lombok.Getter;
+import org.springframework.security.core.GrantedAuthority;
+import org.springframework.security.core.authority.AuthorityUtils;
+import org.springframework.security.core.userdetails.UserDetails;
+
+import javax.persistence.*;
+import java.util.Collection;
+import lombok.Getter;
+import lombok.Setter;
 
 @Entity
+@Getter
+@Setter
 @Table(name = "users")
-public class User {
+public class User implements UserDetails {
     @Id
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
     private int id;
     private String password;
     private String name;
-
     private String role;
-
     private int division_id;
 
-    public int getId() {
-        return id;
-    }
-    public void setId(int id) {
-        this.id = id;
-    }
-    public String getPassword() {
-        return password;
-    }
-    public void setPassword(String password) {
-        this.password = password;
-    }
-    public String getName() {
-        return name;
-    }
-    public void setName(String name) {
-        this.name = name;
+    @Override
+    public String getUsername() {
+        return this.name;
     }
 
-    public String getRole() { return role; }
+    @Override
+    public boolean isAccountNonExpired() {
+        return true;
+    }
+    
+    @Override
+    public boolean isAccountNonLocked() {
+        return true;
+    }
 
-    public void setRole(String role) { this.role = role; }
+    @Override
+    public boolean isCredentialsNonExpired() {
+        return true;
+    }
 
-    public int getDivisionId() { return division_id;}
+    @Override
+    public boolean isEnabled() {
+        return true;
+    }
 
-    public void setDivisionId(int divisionId) { this.division_id = divisionId; }
+    @Override
+    public Collection<? extends GrantedAuthority> getAuthorities() {
+        return AuthorityUtils.createAuthorityList(this.getRole());
+    }
 
-    //idでユーザのインスタンスを取得
-//    public static User getUserBy(id) {
-//        re
-//    }
-//
-//    //同じ部署に所属するユーザーの全Idを取得する
-//    public ArrayList<Integer> getUserIdsSameDivision() {
-//
-//        return
-//    }
-//
-//    //今ログインしているユーザーのインスタンスを作る
-//    User user = User.getUserBy(login_user_id);
-//    //同じ部署の全ユーザーIDを取得
-//    ArrayList<Integer> ids = user.getUserIdsSameDivision();
 }

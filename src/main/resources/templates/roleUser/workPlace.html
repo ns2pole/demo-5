@@ -4,13 +4,13 @@
     <meta charset="utf-8" />
     <title></title>
     <link th:href="@{/css/global.css}" rel="stylesheet" type="text/css">
-    <link th:href="@{/css/workPlace.css}" rel="stylesheet" type="text/css">
+    <link th:href="@{/css/roleUser/workPlace.css}" rel="stylesheet" type="text/css">
   </head>
   <body>
     <header class="header">
       <nav class="global_nav">
         <ul>
-          <li><a href="./kintai" class="nav_item">勤怠入力</a></li>
+          <li><a href="./attendanceInput" class="nav_item">勤怠入力</a></li>
           <li><a href="./workPlace" class="nav_item">勤務場所登録</a></li>
           <li><a href="./contactAddress" class="nav_item">連絡先登録</a></li>
           <li><a href="./attendanceList" class="nav_item">勤怠状況一覧表示</a></li>
@@ -28,10 +28,10 @@
           <h1>勤務場所登録</h1>
         </div>
         <h2>本日の勤務場所を登録して下さい</h2>
-        <select id="department">
-          <option value="1">自宅</option>
-          <option value="2">東京本社</option>
-          <option value="3">営業所</option>
+        <select>
+          <div th:each="workplace : ${workPlaces}">
+            <option th:value="${workplace.ordinal()}" th:text="${workplace.displayStr}"></option>
+          </div>
         </select>
         <input type="button" value="登録" onclick="registDepartment();"><br>
       </div>

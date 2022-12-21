@@ -4,7 +4,6 @@
     <meta charset="utf-8" />
     <title></title>
     <link th:href="@{/css/global.css}" rel="stylesheet" type="text/css">
-    <link th:href="@{/css/workPlace.css}" rel="stylesheet" type="text/css">
   </head>
   <body>
     <header class="header">
@@ -18,20 +17,9 @@
         </ul>
       </nav>
     </header>
-          <h1>ユーザー管理</h1>
-            <h2>ユーザー一覧</h2>
-            <table class="users-table">
-              <tr>
-                <th>日付</th>
-                <th>開始</th>
-              </tr>
-              <tr th:each="user : ${users}">
-                <td th:text="${user.id}"></td>
-                <td th:text="${user.name}"></td>
-              </tr>
-            </table>
-            <h2>ユーザー追加</h2>
+          <h3>ユーザー新規登録</h3>
             <form th:action="@{/user/create}" method="post">
+              <table>
                 <tr>
                   <th>ユーザー名</th>
                   <td>
@@ -45,6 +33,16 @@
                   </td>
                 </tr>
                 <tr>
+                  <th>部署</th>
+                  <td>
+                    <select name="division_id">
+                      <div th:each="division : ${divisions}">
+                        <option th:value="${division.id}" th:text="${division.name}"></option>
+                      </div>
+                    </select>
+                  </td>
+                </tr>
+                <tr>
                   <th>権限</th>
                   <td>
                     <select name="role">
@@ -53,15 +51,7 @@
                     </select>
                   </td>
                 </tr>
-                <tr>
-                  <th>部署</th>
-                  <td>
-                    <select name="division_id">
-                      <option value="1">部署1</option>
-                      <option value="2">部署2</option>
-                    </select>
-                  </td>
-                </tr>
+              </table>
               <button onclick="submit">登録</button>
 
             </form>

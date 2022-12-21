@@ -4,12 +4,14 @@
     <meta charset="utf-8" />
     <title></title>
     <link th:href="@{/css/global.css}" rel="stylesheet" type="text/css">
-    <link th:href="@{/css/workPlace.css}" rel="stylesheet" type="text/css">
   </head>
   <body>
     <header class="header">
       <nav class="global_nav">
         <ul>
+          <li sec:authorize="hasRole('ADMIN')"><a href="./divisions" class="nav_item">部署管理</a></li>
+          <li sec:authorize="hasRole('ADMIN')"><a href="./masterWorkPlaces" class="nav_item">勤務場所管理</a></li>
+          <li sec:authorize="hasRole('ADMIN')"><a href="./attendanceHistories" class="nav_item">勤怠履歴一覧</a></li>
           <li>
             <form role="form" id="logout" th:action="@{/logout}" method="post" class="nav_item">
               <a onclick="submit()">ログアウト</a>
@@ -24,12 +26,18 @@
       <tr>
         <th>ID</th>
         <th>氏名</th>
-        <th></th>
+        <th>部署</th>
+        <th>権限</th>
       </tr>
       <tr th:each="user : ${users}">
         <td th:text="${user.id}"></td>
         <td th:text="${user.name}"></td>
-        <td th:text="編集"></td>
+        <td th:text="${user.division_id}"></td>
+        <td th:text="${user.role}"></td>
+        <td>
+          <a th:href="@{user/edit/{id}(id=*{user.id})} ">編集
+
+        </td>
       </tr>
     </table>
   </body>

@@ -4,9 +4,10 @@
     <meta charset="utf-8" />
     <title></title>
     <link th:href="@{/css/global.css}" rel="stylesheet" type="text/css">
-    <link th:href="@{/css/workPlace.css}" rel="stylesheet" type="text/css">
   </head>
   <body>
-    まだ空の部署管理ページ
-  </body>
+  部署一覧
+  <div th:each="division : ${divisions}">
+    <div th:text="${division.name}"></div>
+  </div>  </body>
 </html>
