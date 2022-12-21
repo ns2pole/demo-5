@@ -1,4 +1,4 @@
-package com.example.servingwebcontent.Controller;
+/*package com.example.servingwebcontent.Controller;
 
 import com.example.servingwebcontent.MyUserDetails;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -164,4 +164,4 @@ public class KintaiController {
 		}
 		return "redirect:kintai";
 	}
-}
+}*/

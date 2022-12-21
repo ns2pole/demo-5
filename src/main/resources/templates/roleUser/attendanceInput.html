@@ -23,15 +23,7 @@
         </ul>
       </nav>
     </header>
-<<<<<<< HEAD:src/main/resources/templates/kintai.html
-    <div class="kintai">
-=======
     <div class="attendanceInput">
-      <p>ようこ<span sec:authentication="principal.username"></span>さん</p>
-      <div sec:authorize="hasRole('ADMIN')">
-        <p>今は<b>ADMIN</b>権限でログインしています5。</p> 
-      </div>
->>>>>>> main:src/main/resources/templates/roleUser/attendanceInput.html
       <div class="taikin" th:if="${param.taikin}">
         退勤しました。
       </div>

@@ -1,4 +1,4 @@
-package com.example.servingwebcontent.controller;
+package com.example.servingwebcontent.Controller;
 
 import com.example.servingwebcontent.model.User;
 import org.springframework.security.core.annotation.AuthenticationPrincipal;
@@ -19,11 +19,7 @@ public class AttendanceListController {
 	private JdbcTemplate jdbcTemplate;
 
 	@GetMapping("/attendanceList")
-<<<<<<< HEAD
-	public String attendanceList(Model model, @AuthenticationPrincipal MyUserDetails user) {
-=======
 	public String index(Model model ,@AuthenticationPrincipal User user) {
->>>>>>> main
 		int userId = user.getId();
 		String sql = "select id,date,begin_time,end_time,rest_start_time,rest_end_time from attendances " +
 				"where user_id = " + userId;
@@ -32,9 +28,6 @@ public class AttendanceListController {
 		model.addAttribute("attendances", attendances);
 		return "roleUser/attendanceList";
 	}
-<<<<<<< HEAD
-}
-=======
 
 	@GetMapping("/attendanceListStart")
 	public String hello(@AuthenticationPrincipal User user) {
@@ -79,4 +72,3 @@ public class AttendanceListController {
 		return "forward:attendanceInput?taikin";
 	}
 }
->>>>>>> main
