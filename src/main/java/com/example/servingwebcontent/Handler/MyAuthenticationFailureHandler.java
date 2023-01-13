@@ -1,4 +1,4 @@
-package com.example.servingwebcontent.handler;
+package com.example.servingwebcontent.Handler;
 
 import java.io.IOException;
 

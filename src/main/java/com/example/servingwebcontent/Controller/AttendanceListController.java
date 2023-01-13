@@ -1,13 +1,16 @@
 package com.example.servingwebcontent.Controller;
 
+import com.example.servingwebcontent.enums.WorkPlace;
 import com.example.servingwebcontent.model.User;
+import org.attoparser.dom.Text;
+import org.hibernate.boot.registry.classloading.spi.ClassLoaderService;
 import org.springframework.security.core.annotation.AuthenticationPrincipal;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
-import java.util.Date;
-import java.util.List;
-import java.util.Map;
+
+import java.util.*;
+
 import org.springframework.jdbc.core.JdbcTemplate;
 import org.springframework.beans.factory.annotation.Autowired;
 
@@ -18,57 +21,62 @@ public class AttendanceListController {
 	@Autowired
 	private JdbcTemplate jdbcTemplate;
 
-	@GetMapping("/attendanceList")
-	public String index(Model model ,@AuthenticationPrincipal User user) {
-		int userId = user.getId();
-		String sql = "select id,date,begin_time,end_time,rest_start_time,rest_end_time from attendances " +
-				"where user_id = " + userId;
-//		String sql = "select id,date from \"attendances\"";
-		List<Map<String, Object>> attendances = this.jdbcTemplate.queryForList(sql);
-		model.addAttribute("attendances", attendances);
-		return "roleUser/attendanceList";
-	}
-
-	@GetMapping("/attendanceListStart")
-	public String hello(@AuthenticationPrincipal User user) {
-		int userId = user.getId();
-		System.out.println(user.getId());
-		int id = 0;
-		try{
-			String sql = "SELECT MAX(id) AS MAX_ID FROM attendances";
-			Map<String, Object> result = jdbcTemplate.queryForMap(sql);
-			id = (int) result.get("MAX_ID")+ 1;
-		} catch (Exception e){
-			System.out.println("0番目");
+	public Map<String,Object> getState(Object user_id) {
+		Map<String, Object> result;
+		Map<String, Object> state = new HashMap<>();
+		try {
+			String sql = "SELECT working_status,work_place_id,id FROM attendances " +
+					"WHERE id = ( SELECT MAX(id) FROM attendances " +
+					"WHERE user_id = " + user_id + ")";
+			result = jdbcTemplate.queryForMap(sql);
+			System.out.println(result);
+			switch ((Integer)result.get("working_status")) {
+				case 1:
+					state.put("working_status", "出勤中");
+					break;
+				case 2:
+					state.put("working_status","休憩中");
+				default:
+					state.put("working_status","未出勤");
+			}
+			if((Integer)result.get("work_place_id") == 1){
+				state.put("work_place_id", "自宅");
+			} else if ((Integer)result.get("work_place_id")== 2) {
+				state.put("work_place_id", "会社");
+			}
+		} catch (Exception e) {
+			System.out.println("state取得失敗");
 		}
-		Date date = new Date();
-		String strday = new SimpleDateFormat("yyyy-MM-dd").format(date);
-		String strtime = new SimpleDateFormat("HH:mm:ss").format(date);
-		String sql = "INSERT INTO attendances (id,user_id,date,begin_time)" +
-				" Values ("+id+","+userId+",'"+strday+"','"+strtime+"')";
-		this.jdbcTemplate.update(sql);
-		return "workPlace";
+		return state;
 	}
 
-	@GetMapping("/atendanceListEnd")
-	public String end(@AuthenticationPrincipal User user) {
-		int userId = user.getId();
-		String sql = "SELECT id,user_id,date,begin_time " +
-				"FROM attendances " +
-				"WHERE end_time IS NULL " +
-				"AND user_id = "
-				+ userId;
+	@GetMapping("/attendanceList")
+	public String index(Model model,@AuthenticationPrincipal User user) {
+		int divisionId = user.getDivisionId();
+		List<Map<String,Object>>state = new ArrayList<>();
 
-		Map<String, Object> result = jdbcTemplate.queryForMap(sql);
-		System.out.println(result);
-		Object oid = result.get("id");
-		Date date = new Date();
-		String strtime = new SimpleDateFormat("HH:mm:ss").format(date);
-		sql = "UPDATE attendances " +
-				"SET end_time = '" + strtime + "'" +
-				"WHERE id = " + oid;
-		this.jdbcTemplate.update(sql);
+		String sql = "select name from divisions " +
+				"where id = " + divisionId;
+		Map<String,Object> division = jdbcTemplate.queryForMap(sql);
+		model.addAttribute("division",division.get("name"));
 
-		return "forward:attendanceInput?taikin";
+		sql = "select id,name from users " +
+				"where division_id  = " + divisionId;
+		List<Map<String, Object>> users = this.jdbcTemplate.queryForList(sql);
+
+		for(Map<String,Object> eachuser : users){
+			System.out.println(eachuser);
+			Map<String,Object> one_user = new HashMap<>();
+			one_user.put("name",eachuser.get("name"));
+			Map<String,Object>result = getState(eachuser.get("id"));
+			one_user.put("working_status",result.get("working_status"));
+			one_user.put("work_place_id",result.get("work_place_id"));
+			one_user.put("contactaddress","000-0000-0000");
+			state.add(one_user);
+			System.out.println(state);
+		}
+		model.addAttribute("state",state);
+
+		return "roleUser/attendanceList";
 	}
 }

@@ -1,12 +1,54 @@
 <!DOCTYPE html>
-<html xmlns:th="http://www.thymeleaf.org" xmlns:sec="http://www.thymeleaf.org/thymeleaf-extras-springsecurity5">
+<html xmlns="http://www.w3.org/1999/xhtml" xmlns:th="https://www.thymeleaf.org"
+      xmlns:sec="https://www.thymeleaf.org/-extras-springsethymeleafcurity3">
 <head>
   <meta charset="utf-8" />
   <title></title>
   <link th:href="@{/css/global.css}" rel="stylesheet" type="text/css">
+  <link th:href="@{/css/roleUser/attendanceList.css}" rel="stylesheet" type="text/css">
 </head>
 <body>
-  まだ空の勤怠履歴一覧<br><br>
-  選択したユーザーの勤怠履歴を月ごとに表示するよ
+<header class="header">
+  <nav class="global_nav">
+    <ul>
+      <li sec:authorize="hasRole('ADMIN')"><a href="./divisions" class="nav_item">部署管理</a></li>
+      <li sec:authorize="hasRole('ADMIN')"><a href="./masterWorkPlaces" class="nav_item">勤務場所管理</a></li>
+      <li sec:authorize="hasRole('ADMIN')"><a href="./attendanceHistories" class="nav_item">勤怠履歴一覧</a></li>
+      <li>
+        <form role="form" id="logout" th:action="@{/logout}" method="post" class="nav_item">
+          <a onclick="submit()">ログアウト</a>
+        </form>
+      </li>
+    </ul>
+  </nav>
+</header>
+<div class="main">
+  <div class="main_contents">
+    <div class="main_contents_title">
+      <h1>勤怠履歴一覧</h1>
+    </div>
+    <div class="main_contents_body">
+      <table class="date-calender">
+        <tr>
+          <th>日付</th>
+          <th>開始</th>
+          <th>終了</th>
+          <th>休憩開始</th>
+          <th>休憩終了</th>
+        </tr>
+
+        <tr th:each="attendance : ${attendances}">
+          <!--<td th:text="${attendance.id}"></td>-->
+          <td th:text="${attendance.date}"></td>
+          <td th:text="${attendance.begin_time}"></td>
+          <td th:text="${attendance.end_time}"></td>
+          <td th:text="${attendance.rest_start_time}"></td>
+          <td th:text="${attendance.rest_end_time}"></td>
+        </tr>
+      </table>
+    </div>
+  </div>
+</div>
+<script src="attendanceList.js"></script>
 </body>
 </html>

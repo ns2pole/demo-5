@@ -28,6 +28,8 @@ public class User implements UserDetails {
         return this.name;
     }
 
+    public int getDivisionId(){ return this.division_id;}
+
     @Override
     public boolean isAccountNonExpired() {
         return true;
