@@ -1,8 +1,6 @@
 <!DOCTYPE html>
-<!--<html xmlns:th="http://www.thymeleaf.org" xmlns:sec="http://www.thymeleaf.org/thymeleaf-extras-springsecurity5"
-      xmlns="http://www.w3.org/1999/html">-->
-<html xmlns="http://www.w3.org/1999/xhtml" xmlns:th="https://www.thymeleaf.org"
-      xmlns:sec="https://www.thymeleaf.org/-extras-springsecurity3">
+<html xmlns:th="http://www.thymeleaf.org" xmlns:sec="http://www.thymeleaf.org/thymeleaf-extras-springsecurity5"
+      xmlns="http://www.w3.org/1999/html">
   <head>
     <meta charset="utf-8" />
     <title></title>
@@ -14,7 +12,6 @@
       <nav class="global_nav">
         <ul>
           <li sec:authorize="hasRole('USER')"><a href="./attendanceInput" class="nav_item">勤怠入力</a></li>
-          <li sec:authorize="hasRole('USER')"><a href="./workPlace" class="nav_item">勤務場所登録</a></li>
           <li sec:authorize="hasRole('USER')"><a href="./contactAddress" class="nav_item">連絡先登録</a></li>
           <li><a href="./attendanceList" class="nav_item">勤怠状況一覧表示</a></li>
           <li>
@@ -38,7 +35,7 @@
       <div id="state" th:text = "${state}"></div>
       <div id="nowTime" ></div>
       <div class="attend-leave-buttons">
-        <form action="/attendwork" method="get">
+        <form action="/workPlace" method="get">
           <button id="attendwork">出勤</button>
         </form>
         <form action="/leavingwork" method="get">

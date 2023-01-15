@@ -11,7 +11,6 @@
   <nav class="global_nav">
     <ul>
       <li><a href="./attendanceInput" class="nav_item">勤怠入力</a></li>
-      <li><a href="./workPlace" class="nav_item">勤務場所登録</a></li>
       <li><a href="./contactAddress" class="nav_item">連絡先登録</a></li>
       <li><a href="./attendanceList" class="nav_item">勤怠状況一覧表示</a></li>
       <li>
@@ -39,7 +38,7 @@
         <tr th:each="status : ${state}">
           <td th:text="${status.name}"></td>
           <td th:text="${status.working_status}"></td>
-          <td th:text="${status.work_place_id}"></td>
+          <td th:text="${status.work_place}"></td>
           <td th:text="${status.contactaddress}"></td>
         </tr>
       </table>

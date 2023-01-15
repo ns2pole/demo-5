@@ -11,7 +11,6 @@
       <nav class="global_nav">
         <ul>
           <li><a href="./attendanceInput" class="nav_item">勤怠入力</a></li>
-          <li><a href="./workPlace" class="nav_item">勤務場所登録</a></li>
           <li><a href="./contactAddress" class="nav_item">連絡先登録</a></li>
           <li><a href="./attendanceList" class="nav_item">勤怠状況一覧表示</a></li>
           <li>
@@ -28,12 +27,14 @@
           <h1>勤務場所登録</h1>
         </div>
         <h2>本日の勤務場所を登録して下さい</h2>
-        <select>
-          <div th:each="workplace : ${workPlaces}">
-            <option th:value="${workplace.ordinal()}" th:text="${workplace.displayStr}"></option>
-          </div>
-        </select>
-        <input type="button" value="登録" onclick="registDepartment();"><br>
+        <form action="/attendwork">
+          <select name="place">
+            <div th:each="workplace : ${workPlaces}">
+              <option th:value="${workplace.ordinal()}" th:text="${workplace.displayStr}"></option>
+            </div>
+          </select>
+          <input type="submit" value="登録" onclick="registDepartment();"><br>
+        </form>
       </div>
     </div>
   </body>

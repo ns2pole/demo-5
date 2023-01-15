@@ -1,6 +1,8 @@
 package com.example.servingwebcontent.Controller;
 
+import com.example.servingwebcontent.enums.WorkPlace;
 import com.example.servingwebcontent.model.User;
+import org.apache.tomcat.jni.Shm;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.jdbc.core.JdbcTemplate;
 import org.springframework.security.core.annotation.AuthenticationPrincipal;
@@ -26,31 +28,33 @@ public class AttendanceInputController {
 		return "roleUser/attendanceInput";
 	}
 
-	public int getState(int user_id) {
-		Map<String, Object> result;
-		int state = 0;
+	public Map<String,Object> getState(int user_id) {
+		Map<String, Object> result = null;
 		try {
-			String sql = "SELECT working_status, id FROM attendances " +
+			String sql = "SELECT working_status,rest_status FROM attendances " +
 					"WHERE id = ( SELECT MAX(id) FROM attendances " +
 					"WHERE user_id = " + user_id + ")";
 			result = jdbcTemplate.queryForMap(sql);
-			state = (int) result.get("working_status");
 		} catch (Exception e) {
 			System.out.println("state取得失敗");
 		}
-		return state;
+		return result;
 	}
 	public void printState(Model model, int user_id) {
-		int state = getState(user_id);
-		switch (state) {
+		Map<String,Object> state = getState(user_id);
+		switch ((Integer) state.get("working_status")) {
 			case 1:
 				model.addAttribute("state", "状態:出勤中");
-				model.addAttribute("error","出勤中です。");
+				if((Integer)state.get("rest_status")==0) {
+					model.addAttribute("error","出勤中です。");
+				}else {
+					model.addAttribute("error", "出勤中(休憩済み)です。");
+				}
 				break;
 
 			case 2:
 				model.addAttribute("state", "状態:休憩中");
-				model.addAttribute("error","休憩中です。");
+				model.addAttribute("error", "休憩中です。");
 				break;
 
 			default:
@@ -61,9 +65,9 @@ public class AttendanceInputController {
 	}
 
 	@GetMapping("/attendwork")
-	public String hello(Model model, @AuthenticationPrincipal User user) {
+	public String hello(Model model, @AuthenticationPrincipal User user,@RequestParam("place") Object place) {
 		int userId = user.getId();
-		if (getState(userId) == 0) {
+		if ((Integer)getState(userId).get("working_status") == 0) {
 			int id = 0;
 			try {
 				String sql = "SELECT MAX(id) AS MAX_ID FROM attendances";
@@ -75,8 +79,9 @@ public class AttendanceInputController {
 			Date date = new Date();
 			String strday = new SimpleDateFormat("yyyy-MM-dd").format(date);
 			String strtime = new SimpleDateFormat("HH:mm:ss").format(date);
-			String sql = "INSERT INTO attendances (id,user_id,working_status,date,begin_time)" +
-					" Values (" + id + "," + userId + ",1,'" + strday + "','" + strtime + "')";
+			System.out.println(place);
+			String sql = "INSERT INTO attendances (id,user_id,work_place_id,rest_status,working_status,date,begin_time)" +
+					" Values (" + id + "," + userId +","+place+",0,1,'" + strday + "','" + strtime + "')";
 			this.jdbcTemplate.update(sql);
 		} else{
 			return "redirect:attendanceInput?error";
@@ -87,7 +92,7 @@ public class AttendanceInputController {
 	@GetMapping("/leavingwork")
 	public String end(Model model, @AuthenticationPrincipal User user) {
 		int userId = user.getId();
-		if(getState(userId) == 1) {
+		if((Integer)getState(userId).get("working_status") == 1) {
 			String sql = "SELECT id,user_id,date,begin_time " +
 					"FROM attendances " +
 					"WHERE end_time IS NULL " +
@@ -113,7 +118,8 @@ public class AttendanceInputController {
 	@GetMapping("/startrest")
 	public String StartRest(Model model, @AuthenticationPrincipal User user) {
 		int userId = user.getId();
-		if(getState(userId) == 1) {
+		if((Integer)getState(userId).get("working_status") == 1
+				&& (Integer)getState(userId).get("rest_status") == 0) {
 			String sql = "SELECT id,user_id,date,begin_time " +
 					"FROM attendances " +
 					"WHERE working_status = 1 " +
@@ -138,7 +144,7 @@ public class AttendanceInputController {
 	@GetMapping("/endrest")
 	public String EndRest(Model model, @AuthenticationPrincipal User user) {
 		int userId = user.getId();
-		if(getState(userId) == 2) {
+		if((Integer)getState(userId).get("working_status") == 2) {
 			String sql = "SELECT id,user_id,date,begin_time " +
 					"FROM attendances " +
 					"WHERE working_status = 2 " +
@@ -152,7 +158,8 @@ public class AttendanceInputController {
 			String strtime = new SimpleDateFormat("HH:mm:ss").format(date);
 			sql = "UPDATE attendances " +
 					"SET rest_end_time  = '" + strtime + "'," +
-					"working_status = 1" +
+					"working_status = 1," +
+					"rest_status = 1 " +
 					"WHERE id = " + oid;
 			this.jdbcTemplate.update(sql);
 		}else {
