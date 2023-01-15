@@ -1,4 +1,4 @@
-package com.example.servingwebcontent.Controller;
+package com.example.servingwebcontent.controller;
 
 import com.example.servingwebcontent.model.User;
 import com.example.servingwebcontent.repository.DivisionRepository;
@@ -28,7 +28,7 @@ public class UsersController {
 	@GetMapping("/user/add")
 	public String add(Model model) {
 		model.addAttribute("divisions", divisionRepository.findAll());
-		return "users/add";
+		return "roleAdmin/users/add";
 	}
 
 	@PostMapping("/user/create")
@@ -43,7 +43,7 @@ public class UsersController {
 	public String edit(@PathVariable int id, Model model) {
 		model.addAttribute("user", userRepository.findById(id).get());
 		model.addAttribute("divisions", divisionRepository.findAll());
-		return "users/edit";
+		return "roleAdmin/users/edit";
 	}
 
 	@PostMapping("/user/update/{id}")

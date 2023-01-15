@@ -1,4 +1,4 @@
-package com.example.servingwebcontent.Controller;
+package com.example.servingwebcontent.controller;
 
 import com.example.servingwebcontent.model.User;
 import org.springframework.beans.factory.annotation.Autowired;
