@@ -14,9 +14,11 @@
       <li><a href="./contactAddress" class="nav_item">連絡先登録</a></li>
       <li><a href="./attendanceList" class="nav_item">勤怠状況一覧表示</a></li>
       <li>
-        <form role="form" id="logout" th:action="@{/logout}" method="post" class="nav_item">
-          <a onclick="submit()">ログアウト</a>
-        </form>
+        <a>
+          <form id="logout" th:action="@{/logout}" method="post" class="nav_item" onclick="submit()">
+            ログアウト
+          </form>
+        </a>
       </li>
     </ul>
   </nav>

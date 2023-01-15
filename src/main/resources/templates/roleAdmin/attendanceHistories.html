@@ -11,13 +11,14 @@
 <header class="header">
   <nav class="global_nav">
     <ul>
-      <li sec:authorize="hasRole('ADMIN')"><a href="./divisions" class="nav_item">部署管理</a></li>
-      <li sec:authorize="hasRole('ADMIN')"><a href="./masterWorkPlaces" class="nav_item">勤務場所管理</a></li>
+      <li sec:authorize="hasRole('ADMIN')"><a href="./users" class="nav_item">ユーザー管理</a></li>
       <li sec:authorize="hasRole('ADMIN')"><a href="./attendanceHistories" class="nav_item">勤怠履歴一覧</a></li>
       <li>
-        <form role="form" id="logout" th:action="@{/logout}" method="post" class="nav_item">
-          <a onclick="submit()">ログアウト</a>
-        </form>
+        <a>
+          <form id="logout" th:action="@{/logout}" method="post" class="nav_item" onclick="submit()">
+            ログアウト
+          </form>
+        </a>
       </li>
     </ul>
   </nav>
