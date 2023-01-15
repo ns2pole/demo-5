@@ -27,16 +27,16 @@
           <h1>連絡先登録</h1>
         </div>
         <div class="main_contents_body">
-          <form class="h-adr">
+          <form th:action="@{/contactAddress/update}" method="post">
             <table class="main_contents_table">
               <span class="p-country-name" style="display:none;">Japan</span>
               <tr>
                 <th>電話番号</th>
-                <td><input type="text" name="tel" id="tel" placeholder="000-0000-0000"/></td>
+                <td><input type="text" name="phone" id="phone" th:value="${contact_address.phone}" placeholder="000-0000-0000"/></td>
               </tr>
               <tr>
                 <th>メールアドレス</th>
-                <td><input type="text" name="mail" id="mail" placeholder="○○○○○○○@○○○○"/></td>    
+                <td><input type="text" name="email" id="email" th:value="${contact_address.email}" placeholder="○○○○○○○@○○○○"/></td>
               </tr>
               <tr><td>&nbsp;</td></tr>
               <tr>
@@ -54,7 +54,7 @@
                 <td>
                   <input type="text" class="p-locality" placeholder="○○市○○町"/>
                 </td>
-              </tr> 
+              </tr>
               <tr>
                 <th>丁目番地</th>
                 <td><input type="text" class="p-street-address" placeholder="○丁目○○"/></td>
@@ -68,7 +68,7 @@
                 <td><textarea name="remarks" cols="30" rows="5" placeholder="備考を入力して下さい。"></textarea></td>
               </tr>
             </table>
-            <input type="button" value="登録" onclick="registcontactAddress();" />
+            <input type="button" value="登録" onclick="submit();" />
           </form>
         </div>
       </div>
