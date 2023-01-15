@@ -1,7 +1,8 @@
-package com.example.servingwebcontent.Controller;
+package com.example.servingwebcontent.controller;
 
 import com.example.servingwebcontent.enums.WorkPlace;
 import com.example.servingwebcontent.model.User;
+import com.example.servingwebcontent.repository.ContactAddressRepository;
 import org.attoparser.dom.Text;
 import org.hibernate.boot.registry.classloading.spi.ClassLoaderService;
 import org.springframework.security.core.annotation.AuthenticationPrincipal;
@@ -20,6 +21,9 @@ import java.text.SimpleDateFormat;
 public class AttendanceListController {
 	@Autowired
 	private JdbcTemplate jdbcTemplate;
+
+	@Autowired
+	ContactAddressRepository contactAddressRepository;
 
 	public Map<String,Object> getState(Object user_id) {
 		Map<String, Object> result;
@@ -71,11 +75,9 @@ public class AttendanceListController {
 			Map<String,Object>result = getState(eachuser.get("id"));
 			one_user.put("working_status",result.get("working_status"));
 			one_user.put("work_place",result.get("work_place"));
-			one_user.put("contactaddress","000-0000-0000");
-			state.add(one_user);
+			one_user.put("contact_address",contactAddressRepository.findByUserId((int)eachuser.get("id")).get());			state.add(one_user);
 		}
 		model.addAttribute("state",state);
-
 		return "roleUser/attendanceList";
 	}
 }

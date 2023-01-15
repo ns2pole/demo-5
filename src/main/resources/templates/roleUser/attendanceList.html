@@ -39,8 +39,7 @@
           <td th:text="${status.name}"></td>
           <td th:text="${status.working_status}"></td>
           <td th:text="${status.work_place}"></td>
-          <td th:text="${status.contactaddress}"></td>
-        </tr>
+          <td th:text="'　　phone: ' + ${status.contact_address.phone} + ' 　　　  email: ' + ${status.contact_address.email}"></td>        </tr>
       </table>
     </div>
   </div>
