@@ -22,6 +22,7 @@ public class UsersController {
 	@GetMapping("/users")
 	public String index(Model model) {
 		model.addAttribute("users", userRepository.findAll());
+		model.addAttribute("divisions", divisionRepository.findAll());
 		return "roleAdmin/users/index";
 	}
 

@@ -9,4 +9,5 @@ import java.util.Optional;
 public interface ContactAddressRepository extends JpaRepository<ContactAddress, Integer> {
 	public Optional<ContactAddress> findByUserId(int userId);
 
+
 }
