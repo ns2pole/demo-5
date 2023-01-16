@@ -2,7 +2,9 @@ package com.example.servingwebcontent;
  
 import java.util.Optional;
 
+import com.example.servingwebcontent.model.Division;
 import com.example.servingwebcontent.model.User;
+import com.example.servingwebcontent.repository.DivisionRepository;
 import com.example.servingwebcontent.repository.UserRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.core.userdetails.UserDetailsService;
@@ -15,6 +17,10 @@ public class UserService implements UserDetailsService {
 
     @Autowired
     UserRepository userRepository;
+    @Autowired
+    DivisionRepository divisionRepository;
+
+
 
     @Override
     public User loadUserByUsername(String name) throws UsernameNotFoundException {
@@ -23,4 +29,9 @@ public class UserService implements UserDetailsService {
         return user;
     }
 
+    public String getDivisionNameBy(int user_id) {
+        User user = userRepository.findById(user_id).get();
+        Division division = divisionRepository.findById(user.getDivisionId()).get();
+        return division.getName();
+    }
 }

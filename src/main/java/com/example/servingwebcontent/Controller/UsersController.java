@@ -1,13 +1,19 @@
 package com.example.servingwebcontent.controller;
 
+import com.example.servingwebcontent.model.Division;
 import com.example.servingwebcontent.model.User;
 import com.example.servingwebcontent.repository.DivisionRepository;
 import com.example.servingwebcontent.repository.UserRepository;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.relational.core.sql.In;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.security.crypto.password.PasswordEncoder;
+
+import java.util.HashMap;
+import java.util.List;
+import java.util.Map;
 
 @Controller
 public class UsersController {
@@ -22,7 +28,12 @@ public class UsersController {
 	@GetMapping("/users")
 	public String index(Model model) {
 		model.addAttribute("users", userRepository.findAll());
-		model.addAttribute("divisions", divisionRepository.findAll());
+		List<Division> divisions = divisionRepository.findAll();
+		Map<Integer, Division> m = new HashMap<>();
+		for(int i = 0; i < divisions.size(); i++) {
+			m.put(divisions.get(i).getId(), divisions.get(i));
+		}
+		model.addAttribute("divisions", m);
 		return "roleAdmin/users/index";
 	}
 
