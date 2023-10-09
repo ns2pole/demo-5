@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html xmlns:th="http://www.thymeleaf.org" xmlns:sec="http://www.thymeleaf.org/thymeleaf-extras-springsecurity5">
+<html xmlns:th="http://www.thymeleaf.org">
 <head>
   <meta charset="utf-8" />
   <title></title>
@@ -29,19 +29,17 @@
       <h1>勤怠状況一覧</h1>
     </div>
     <div class="main_contents_body">
-      <p class="titele"><span th:text="${division}"></span>の勤怠状況</p>
+      <p class="title">勤怠状況</p>
       <table class="statelist">
         <tr>
           <th>名前</th>
-          <th>出退勤</th>
-          <th>勤務場所</th>
-          <th>連絡先</th>
+          <th>出勤</th>
+          <th>退勤</th>
         </tr>
-        <tr th:each="status : ${state}">
-          <td th:text="${status.name}"></td>
-          <td th:text="${status.working_status}"></td>
-          <td th:text="${status.work_place}"></td>
-          <td th:text="'　　phone: ' + ${status.contact_address.phone} + ' 　　　  email: ' + ${status.contact_address.email}"></td>        </tr>
+        <tr th:each="attendance : ${attendances}">
+          <td th:text="${attendance['id']}"></td>
+          <td th:text="${attendance['begin_time']}"></td>
+          <td th:text="${attendance['end_time']}"></td>
       </table>
     </div>
   </div>

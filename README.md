@@ -58,3 +58,8 @@ setup.sqlを実行してこれらのテーブルとデータを生成できま�
 で入れる。
 
 ## ログインは https://itmaroblog.com/webapplication-java-spring_8/を参考にした。
+
+
+## postgreはpsql -h localhost -p 5432 -U yamashiro -d postgresで接続できる
+## psql -U yamashiro -d postgres      で入れる
+## psql -h localhost -p 5432 -U nakamura -d postgres  password1でも入れる

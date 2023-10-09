@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html xmlns:th="http://www.thymeleaf.org" xmlns:sec="http://www.thymeleaf.org/thymeleaf-extras-springsecurity5">
+<html xmlns:th="http://www.thymeleaf.org">
   <head>
     <meta charset="utf-8" />
     <title></title>
@@ -29,13 +29,13 @@
           <h1>勤務場所登録</h1>
         </div>
         <h2>本日の勤務場所を登録して下さい</h2>
-        <form action="/attendwork">
+        <form action="/attendwork" method="post">
           <select name="place">
             <div th:each="workplace : ${workPlaces}">
               <option th:value="${workplace.ordinal()}" th:text="${workplace.displayStr}"></option>
             </div>
           </select>
-          <input type="submit" value="登録" onclick="registDepartment();"><br>
+          <input type="submit" value="登録"><br>
         </form>
       </div>
     </div>

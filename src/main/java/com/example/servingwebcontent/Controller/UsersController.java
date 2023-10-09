@@ -5,11 +5,9 @@ import com.example.servingwebcontent.model.User;
 import com.example.servingwebcontent.repository.DivisionRepository;
 import com.example.servingwebcontent.repository.UserRepository;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.data.relational.core.sql.In;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
-import org.springframework.security.crypto.password.PasswordEncoder;
 
 import java.util.HashMap;
 import java.util.List;
@@ -17,9 +15,6 @@ import java.util.Map;
 
 @Controller
 public class UsersController {
-	@Autowired
-	PasswordEncoder passwordEncoder;
-
 	@Autowired
 	UserRepository userRepository;
 	@Autowired
@@ -45,7 +40,6 @@ public class UsersController {
 
 	@PostMapping("/user/create")
 	public String create(@ModelAttribute User user) {
-		user.setPassword(passwordEncoder.encode(user.getPassword()));
 		userRepository.save(user);
 		return "redirect:/users";
 	}
@@ -60,7 +54,6 @@ public class UsersController {
 
 	@PostMapping("/user/update/{id}")
 	public String update(@ModelAttribute User user) {
-		user.setPassword(passwordEncoder.encode(user.getPassword()));
 		userRepository.save(user);
 		return "redirect:/users";
 	}

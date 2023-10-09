@@ -7,12 +7,10 @@ import com.example.servingwebcontent.model.User;
 import com.example.servingwebcontent.repository.DivisionRepository;
 import com.example.servingwebcontent.repository.UserRepository;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.security.core.userdetails.UserDetailsService;
-import org.springframework.security.core.userdetails.UsernameNotFoundException;
 import org.springframework.stereotype.Service;
 
 @Service
-public class UserService implements UserDetailsService {
+public class UserService {
 
 
     @Autowired
@@ -22,12 +20,6 @@ public class UserService implements UserDetailsService {
 
 
 
-    @Override
-    public User loadUserByUsername(String name) throws UsernameNotFoundException {
-        User user = userRepository.findByName(name)
-            .orElseThrow(() -> new UsernameNotFoundException(name + " not found"));
-        return user;
-    }
 
     public String getDivisionNameBy(int user_id) {
         User user = userRepository.findById(user_id).get();

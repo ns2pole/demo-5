@@ -1,14 +1,11 @@
 package com.example.servingwebcontent.controller;
 
-import com.example.servingwebcontent.enums.WorkPlace;
-import com.example.servingwebcontent.model.User;
-import org.apache.tomcat.jni.Shm;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.jdbc.core.JdbcTemplate;
-import org.springframework.security.core.annotation.AuthenticationPrincipal;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 
 import java.text.SimpleDateFormat;
@@ -22,9 +19,8 @@ public class AttendanceInputController {
 
 	@GetMapping("/attendanceInput")
 	public String index(@RequestParam(name = "name", required = false, defaultValue = "World")
-							String name, Model model, @AuthenticationPrincipal User user) {
+							String name, Model model) {
 		model.addAttribute("name", name);
-		printState(model, user.getId());
 		return "roleUser/attendanceInput";
 	}
 
@@ -64,34 +60,19 @@ public class AttendanceInputController {
 		return;
 	}
 
-	@GetMapping("/attendwork")
-	public String hello(Model model, @AuthenticationPrincipal User user,@RequestParam("place") Object place) {
-		int userId = user.getId();
-		if ((Integer)getState(userId).get("working_status") == 0) {
-			int id = 0;
-			try {
-				String sql = "SELECT MAX(id) AS MAX_ID FROM attendances";
-				Map<String, Object> result = jdbcTemplate.queryForMap(sql);
-				id = (int) result.get("MAX_ID") + 1;
-			} catch (Exception e) {
-				System.out.println("0番目");
-			}
-			Date date = new Date();
-			String strday = new SimpleDateFormat("yyyy-MM-dd").format(date);
-			String strtime = new SimpleDateFormat("HH:mm:ss").format(date);
-			System.out.println(place);
-			String sql = "INSERT INTO attendances (id,user_id,work_place_id,rest_status,working_status,date,begin_time)" +
-					" Values (" + id + "," + userId +","+place+",0,1,'" + strday + "','" + strtime + "')";
-			this.jdbcTemplate.update(sql);
-		} else{
-			return "redirect:attendanceInput?error";
-		}
+	@PostMapping("/attendwork")
+	public String attendwork() {
+		Date date = new Date();
+		String strtime = new SimpleDateFormat("HH:mm:ss").format(date);
+		String sql = "INSERT INTO attendances (begin_time)" +
+					" Values ('"+ strtime + "')";
+		this.jdbcTemplate.update(sql);
 		return"redirect:attendanceInput";
 	}
 
 	@GetMapping("/leavingwork")
-	public String end(Model model, @AuthenticationPrincipal User user) {
-		int userId = user.getId();
+	public String end(Model model) {
+		int userId = 1;
 		if((Integer)getState(userId).get("working_status") == 1) {
 			String sql = "SELECT id,user_id,date,begin_time " +
 					"FROM attendances " +
@@ -116,8 +97,8 @@ public class AttendanceInputController {
 	}
 
 	@GetMapping("/startrest")
-	public String StartRest(Model model, @AuthenticationPrincipal User user) {
-		int userId = user.getId();
+	public String StartRest(Model model) {
+		int userId = 1;
 		if((Integer)getState(userId).get("working_status") == 1
 				&& (Integer)getState(userId).get("rest_status") == 0) {
 			String sql = "SELECT id,user_id,date,begin_time " +
@@ -142,8 +123,8 @@ public class AttendanceInputController {
 		return "redirect:attendanceInput";
 	}
 	@GetMapping("/endrest")
-	public String EndRest(Model model, @AuthenticationPrincipal User user) {
-		int userId = user.getId();
+	public String EndRest(Model model) {
+		int userId = 1;
 		if((Integer)getState(userId).get("working_status") == 2) {
 			String sql = "SELECT id,user_id,date,begin_time " +
 					"FROM attendances " +

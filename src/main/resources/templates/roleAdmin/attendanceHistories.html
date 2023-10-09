@@ -1,6 +1,6 @@
 <!DOCTYPE html>
 <html xmlns="http://www.w3.org/1999/xhtml" xmlns:th="https://www.thymeleaf.org"
-      xmlns:sec="https://www.thymeleaf.org/-extras-springsethymeleafcurity3">
+      >
 <head>
   <meta charset="utf-8" />
   <title></title>
@@ -11,8 +11,6 @@
 <header class="header">
   <nav class="global_nav">
     <ul>
-      <li sec:authorize="hasRole('ADMIN')"><a href="./users" class="nav_item">ユーザー管理</a></li>
-      <li sec:authorize="hasRole('ADMIN')"><a href="./attendanceHistories" class="nav_item">勤怠履歴一覧</a></li>
       <li>
         <a>
           <form id="logout" th:action="@{/logout}" method="post" class="nav_item" onclick="submit()">
