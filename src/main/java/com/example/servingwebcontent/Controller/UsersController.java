@@ -23,12 +23,12 @@ public class UsersController {
 	@GetMapping("/users")
 	public String index(Model model) {
 		model.addAttribute("users", userRepository.findAll());
-		List<Division> divisions = divisionRepository.findAll();
-		Map<Integer, Division> m = new HashMap<>();
-		for(int i = 0; i < divisions.size(); i++) {
-			m.put(divisions.get(i).getId(), divisions.get(i));
-		}
-		model.addAttribute("divisions", m);
+//		List<Division> divisions = divisionRepository.findAll();
+//		Map<Integer, Division> m = new HashMap<>();
+//		for(int i = 0; i < divisions.size(); i++) {
+//			m.put(divisions.get(i).getId(), divisions.get(i));
+//		}
+//		model.addAttribute("divisions", m);
 		return "roleAdmin/users/index";
 	}
 
@@ -40,21 +40,21 @@ public class UsersController {
 
 	@PostMapping("/user/create")
 	public String create(@ModelAttribute User user) {
-		userRepository.save(user);
+		userRepository.update(user);
 		return "redirect:/users";
 	}
 
 
 	@GetMapping("/user/edit/{id}")
 	public String edit(@PathVariable int id, Model model) {
-		model.addAttribute("user", userRepository.findById(id).get());
+		model.addAttribute("user", userRepository.findById(id));
 		model.addAttribute("divisions", divisionRepository.findAll());
 		return "roleAdmin/users/edit";
 	}
 
 	@PostMapping("/user/update/{id}")
 	public String update(@ModelAttribute User user) {
-		userRepository.save(user);
+		userRepository.update(user);
 		return "redirect:/users";
 	}
 

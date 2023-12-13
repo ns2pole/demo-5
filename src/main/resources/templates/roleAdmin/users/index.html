@@ -31,7 +31,6 @@
       <tr th:each="user : ${users}">
         <td th:text="${user.id}"></td>
         <td th:text="${user.name}"></td>
-        <td th:text="${divisions.get(user.division_id).getName()}"></td>
         <td th:text="${user.role}"></td>
         <td>
           <a th:href="@{user/edit/{id}(id=*{user.id})} ">編集

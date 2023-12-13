@@ -22,7 +22,7 @@ public class UserService {
 
 
     public String getDivisionNameBy(int user_id) {
-        User user = userRepository.findById(user_id).get();
+        User user = userRepository.findById(user_id);
         Division division = divisionRepository.findById(user.getDivisionId()).get();
         return division.getName();
     }
